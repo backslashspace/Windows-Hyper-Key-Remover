@@ -1,0 +1,4 @@
+﻿-1		- unable to read from registry
+-2		- unable to parse data from registry
+-3		- unable to write to registry
+-4		- unable set file attributes for C:\Windows\HelpPane.exe
