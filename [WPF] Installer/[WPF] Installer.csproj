@@ -46,6 +46,9 @@
   <PropertyGroup>
     <StartupObject>Installer.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>App\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -60,8 +63,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Pin.cs" />
-    <Compile Include="ThemeAwareness.cs" />
+    <Compile Include="Install\1. Clean-Up.cs" />
+    <Compile Include="Install\2. Extract-Remover.cs" />
+    <Compile Include="Install\3. Configure-User-Init.cs" />
+    <Compile Include="Install\4. Extract-Service.cs" />
+    <Compile Include="Install\5. Register-Service.cs" />
+    <Compile Include="Install\6. Register-Application.cs" />
+    <Compile Include="Install\_Meth-Relay.cs" />
+    <Compile Include="MainWindow\Views\1. Intro.xaml.cs">
+      <DependentUpon>1. Intro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow\Views\3. Result.xaml.cs">
+      <DependentUpon>3. Result.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow\Views\2. Select.xaml.cs">
+      <DependentUpon>2. Select.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MessageBoxWindow\Dialogue.xaml.cs">
+      <DependentUpon>Dialogue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="state.cs" />
+    <Compile Include="Interactive-UI\CheckBoxAnimator.cs" />
+    <Compile Include="Interactive-UI\ThemeAwareness.cs" />
     <Compile Include="WinAPI\WMI-Registry-Events.cs" />
     <Page Include="Dictionary.xaml">
       <SubType>Designer</SubType>
@@ -81,6 +104,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainWindow\Views\1. Intro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow\Views\3. Result.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow\Views\2. Select.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MessageBoxWindow\Dialogue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -100,6 +139,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\Inter SemiBold.ttf" />
+    <Resource Include="Fonts\Inter Medium.ttf" />
+    <Resource Include="Fonts\Inter Display Medium.ttf" />
+    <Resource Include="Fonts\Inter Display SemiBold.ttf" />
+    <Resource Include="Fonts\Inter Display.ttf" />
+    <Resource Include="Fonts\Inter.ttf" />
+    <None Include="App\app.manifest" />
+    <Resource Include="Fonts\Cascadia Mono.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -112,7 +159,20 @@
     <Resource Include="azroleui_140.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MainWindow\Views\" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_104.ico" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_105.ico" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_106.ico" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_107.ico" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_114.ico" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_150.ico" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_78.ico" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_84.ico" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_98.ico" />
+    <Resource Include="MessageBoxWindow\Icons\imageres_99.ico" />
+    <Resource Include="MessageBoxWindow\Icons\shell32_14.ico" />
+    <Resource Include="MessageBoxWindow\Icons\shell32_16826.ico" />
+    <Resource Include="MessageBoxWindow\Icons\shell32_1_16802.ico" />
+    <Resource Include="MessageBoxWindow\Icons\shell32_48.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -5,13 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         
-        Title="Windows HyperKey Remover "
+        xmlns:Views="clr-namespace:Installer.Views"
+        
+        Title="Windows Hyper Key Remover "
         ResizeMode="CanMinimize"
-        Background="#202020"
-        Height="450" Width="650">
+        Background="{DynamicResource Background}"
+        Height="400" Width="600">
 
+    <Grid UseLayoutRounding="True">
 
-    <Grid>
+        <Views:Intro x:Name="IntroView" Visibility="Visible"/>
+        <Views:Select x:Name="SelectView" Visibility="Collapsed"/>
+        <Views:Result x:Name="ResultView" Visibility="Collapsed"/>
 
     </Grid>
 </Window>

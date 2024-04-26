@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="Installer.Views.Select"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="400" d:DesignWidth="600">
+
+    <Grid>
+        <TextBlock
+            Text="Select components to install"
+            Height="28" Width="330"
+            VerticalAlignment="Top" HorizontalAlignment="Left"
+            Foreground="{DynamicResource FontColor_Display}"
+            FontFamily="{StaticResource Inter Display}"
+            Margin="24,20,0,0"
+            FontSize="20"/>
+
+        <CheckBox
+            Style="{StaticResource CheckBox_Checked}"
+            Foreground="{StaticResource FontColor}"
+            Content="Hyper Key Deregisterer"
+            IsEnabled="False"
+            FontSize="16"
+            Margin="48,60,0,0"
+            Height="26"
+            Width="335"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"/>
+
+        <TextBlock Style="{StaticResource TextBlock}"
+            Text="The main process - starts right after the user initialization during logon and deregisters all hotkeys for a newly created shell process. This process is not visible to the user and does not keep running in the background after initialization."
+            Height="72" Width="400"
+            TextWrapping="Wrap"
+            LineHeight="18"
+            FontSize="14"
+            Foreground="{StaticResource FontColor_Info}"
+            VerticalAlignment="Top" HorizontalAlignment="Left"
+            Margin="77,84,0,0"/>
+
+        <CheckBox x:Name="SelfHealingCheckBox"
+            Style="{StaticResource CheckBox_Checked}"
+            Foreground="{StaticResource FontColor}"
+            Content="Self-Healing"
+            FontSize="16"
+            Margin="48,168,0,0"
+            Height="26"
+            Width="115"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"/>
+
+        <TextBlock Style="{StaticResource TextBlock}"
+            Text="A helper service that ensures that the user-init config contains a reference to the Hyper-Key deregistration process. (Windows Update might reset said user-init configuration) The service will start at boot and shut itself down after the check."
+            Height="72" Width="400"
+            TextWrapping="Wrap"
+            LineHeight="18"
+            FontSize="14"
+            Foreground="{StaticResource FontColor_Info}"
+            VerticalAlignment="Top" HorizontalAlignment="Left"
+            Margin="77,192,0,0"/>
+
+        <Button Style="{StaticResource Button_Primary}"
+            Margin="0,0,24,24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Height="32"
+            Width="172"
+            FontFamily="{StaticResource Inter Medium}"
+            Content="Next" Click="Next_Button"/>
+
+        <Button Style="{StaticResource Button_Secondary}"
+            Margin="0,0,207,24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Height="32"
+            Width="172"
+            FontFamily="{StaticResource Inter}"
+            Content="Back"
+            Click="Back_Button"/>
+    </Grid>
+</UserControl>

@@ -6,13 +6,24 @@ namespace Installer
 {
     internal static class ThemeAwareness
     {
+        internal struct CurrentColors
+        {
+            internal static Byte[] RawPalette;
+        }
+
+
         internal static Boolean? AppsUseLightTheme { get; private set; } = null;
 
         internal static void StartExternalEventListener()
         {
             Init_AppsUseLightTheme();
 
-            //init colorscheme
+            Init_WindowsAccentColor();
+        }
+
+        private static void Init_WindowsAccentColor()
+        {
+            
         }
 
         #region Dark/LightMode
@@ -68,7 +79,6 @@ namespace Installer
         {
             Pin.MainWindow.Dispatcher.Invoke(new Action(() =>
             {
-
                 if (Pin.MainWindow.WindowStyle != WindowStyle.ToolWindow && Pin.MainWindow.WindowStyle != WindowStyle.None)
                 {
                     WindowStyle current = Pin.MainWindow.WindowStyle;
@@ -78,6 +88,7 @@ namespace Installer
                         WindowStyle.SingleBorderWindow => WindowStyle.ThreeDBorderWindow,
                         WindowStyle.ThreeDBorderWindow => WindowStyle.SingleBorderWindow,
                         WindowStyle.ToolWindow => WindowStyle.SingleBorderWindow,
+                        _ => current,
                     };
 
                     Pin.MainWindow.WindowStyle = current;

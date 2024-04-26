@@ -7,13 +7,16 @@ namespace Installer
     {
         internal static IntPtr WindowHandle { get; private set; }
 
+        internal static Duration Duration = new(TimeSpan.FromSeconds(1));
+
         public MainWindow()
         {
             InitializeComponent();
             Pin.MainWindow = this;
+
             Loaded += InitThemeAwareness;
 
-            Title += Program.AssemblyFileVersion;
+            Title += $"[{Program.AssemblyInformationalVersion} | Build {Program.AssemblyFileVersion.Revision}]";
         }
 
         private void InitThemeAwareness(object sender, RoutedEventArgs e)

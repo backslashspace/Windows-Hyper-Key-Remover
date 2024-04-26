@@ -1,4 +1,414 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--#region Fonts -->
+    <FontFamily x:Key="Inter">pack://application:,,,/Fonts/#Inter</FontFamily>
+    <FontFamily x:Key="Inter Medium">pack://application:,,,/Fonts/#Inter Medium</FontFamily>
+    <FontFamily x:Key="Inter SemiBold">pack://application:,,,/Fonts/#Inter SemiBold</FontFamily>
+
+    <FontFamily x:Key="Inter Display">pack://application:,,,/Fonts/#Inter Display</FontFamily>
+    <FontFamily x:Key="Inter Display Medium">pack://application:,,,/Fonts/#Inter Display Medium</FontFamily>
+    <FontFamily x:Key="Inter Display SemiBold">pack://application:,,,/Fonts/#Inter Display SemiBold</FontFamily>
+
+    <FontFamily x:Key="Cascadia Mono">pack://application:,,,/Fonts/#Cascadia Mono</FontFamily>
+    <!--#endregion-->
+
+    <SolidColorBrush x:Key="FontColor_Display" Color="#fbf8fd"/>
+    <SolidColorBrush x:Key="FontColor" Color="#e5e1e6"/>
+    <SolidColorBrush x:Key="FontColor_Info" Color="#aeaaaf"/>
     
+    <SolidColorBrush x:Key="FontColor_Display_Inverted" Color="#0b060c"/>
+    
+    <SolidColorBrush x:Key="Background" Color="#202020"/>
+
+    <!--#region TextBox -->
+    <Style x:Key="TextBox_FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderBrush="#888888" BorderThickness="2" CornerRadius="6" Margin="-12" SnapsToDevicePixels="True"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="#101010"/>
+        <Setter Property="BorderBrush" Value="#323232"/>
+        <Setter Property="Foreground" Value="Green"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="FontFamily" Value="{StaticResource Cascadia Mono}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource TextBox_FocusVisual}"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+    
+    <!--#region TextBlock -->
+    <Style x:Key="TextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="TextTrimming" Value="None"/>
+        <Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Buttons -->
+    <Style x:Key="Button_FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderBrush="#ffffff" BorderThickness="2" CornerRadius="7" Margin="-3" SnapsToDevicePixels="True"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--#region PrimaryButton -->
+    <Style x:Key="Button_Primary" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Button_FocusVisual}"/>
+        <Setter Property="Background" Value="#4cc2ff"/>
+        <Setter Property="BorderBrush" Value="#5ac7ff"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource FontColor_Display_Inverted}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding BorderBrush}" CornerRadius="5" SnapsToDevicePixels="True">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4.15" Margin="1">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--#region MouseOver -->
+                        <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#47b1e8" 
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                    <ColorAnimation To="#55b7ea" 
+                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#4cc2ff" 
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                    <ColorAnimation To="#5ac7ff" 
+                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <!--#endregion-->
+                        <!--#region MouseDown -->
+                        <EventTrigger RoutedEvent="Mouse.PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#42a1d2" 
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                    <ColorAnimation To="#42a1d2" 
+                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Mouse.PreviewMouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#47b1e8" 
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                    <ColorAnimation To="#55b7ea" 
+                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <!--#endregion-->
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" Value="#303030"/>
+                            <Setter Property="BorderBrush" Value="#303030"/>
+                            <Setter Property="Foreground" Value="#727272"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region SecondaryButton -->
+    <Style x:Key="Button_Secondary" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Button_FocusVisual}"/>
+        <Setter Property="Background" Value="#2d2d2d"/>
+        <Setter Property="BorderBrush" Value="#353535"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource FontColor_Display}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding BorderBrush}" CornerRadius="5" SnapsToDevicePixels="True">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4.15" Margin="1">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--#region MouseOver -->
+                        <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#323232" 
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#2d2d2d" 
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                    <ColorAnimation To="#353535" 
+                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <!--#endregion-->
+                        <!--#region MouseDown -->
+                        <EventTrigger RoutedEvent="Mouse.PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#272727" 
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                    <ColorAnimation To="#303030" 
+                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Mouse.PreviewMouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#323232" 
+                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                    <ColorAnimation To="#353535" 
+                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.075"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <!--#endregion-->
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" Value="#262626"/>
+                            <Setter Property="BorderBrush" Value="#262626"/>
+                            <Setter Property="Foreground" Value="#727272"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+    <!--#endregion-->
+
+    <!--#region CheckBox -->
+    <Style x:Key="CheckBox_FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderBrush="#ffffff" BorderThickness="2" CornerRadius="8" Margin="-7" SnapsToDevicePixels="True"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CheckBox" TargetType="{x:Type CheckBox}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource CheckBox_FocusVisual}"/>
+        <Setter Property="Background" Value="#272727"/>
+        <Setter Property="BorderBrush" Value="#9e9e9e"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20px"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="checkBoxBorder" Width="20" Height="20" CornerRadius="4" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path x:Name="optionMark" Data="M 12 -4 L 4 4 L 0 0 L 1 -1 L 4 2 L 11 -5 L 12 -4" Fill="Black" Margin="4" Opacity="0" Stretch="Uniform"/>
+                        </Border>
+                        <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="8,-3,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="Checked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation 
+                                    Storyboard.TargetName="optionMark"
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="1"
+                                    Duration="0:0:0.05"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation 
+                                    Storyboard.TargetName="optionMark"
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="0"
+                                    Duration="0:0:0.05"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="#303030"/>
+                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#484848"/>
+                            <Setter Property="Foreground"  Value="#747474"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="#101010"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CheckBox_Checked" TargetType="{x:Type CheckBox}">
+        <Setter Property="IsChecked" Value="True"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource CheckBox_FocusVisual}"/>
+        <Setter Property="Background" Value="#4cc2ff"/>
+        <Setter Property="BorderBrush" Value="#525252"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20px"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="checkBoxBorder" Width="20" Height="20" CornerRadius="4" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path x:Name="optionMark" Data="M 12 -4 L 4 4 L 0 0 L 1 -1 L 4 2 L 11 -5 L 12 -4" Fill="Black" Margin="4" Opacity="1" Stretch="Uniform"/>
+                        </Border>
+                        <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="8,-3,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="Checked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation 
+                            Storyboard.TargetName="optionMark"
+                            Storyboard.TargetProperty="Opacity"
+                            To="1"
+                            Duration="0:0:0.05"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation 
+                            Storyboard.TargetName="optionMark"
+                            Storyboard.TargetProperty="Opacity"
+                            To="0"
+                            Duration="0:0:0.05"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="#685858"/>
+                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#685858"/>
+                            <Setter Property="Foreground"  Value="#747474"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="#101010"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region ProgressBar -->
+    <Style x:Key="ProgressBar" TargetType="{x:Type ProgressBar}">
+        <Setter Property="Foreground" Value="#4cc2ff"/>
+        <Setter Property="Background" Value="#101010"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                    <Border x:Name="TemplateRoot">
+                        <Grid>
+                            <Border Name="mask" CornerRadius="4" Background="{TemplateBinding BorderBrush}"/>
+                            <Grid Margin="{TemplateBinding BorderThickness}">
+                                <Grid.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=mask}"/>
+                                </Grid.OpacityMask>
+                                <Rectangle x:Name="PART_Track" Fill="{TemplateBinding Background}"/>
+                                <Grid x:Name="PART_Indicator" HorizontalAlignment="Left">
+                                    <Rectangle Fill="{TemplateBinding Foreground}"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
 </ResourceDictionary>
