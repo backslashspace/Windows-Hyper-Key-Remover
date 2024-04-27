@@ -79,9 +79,12 @@
     <Compile Include="MainWindow\Views\2. Select.xaml.cs">
       <DependentUpon>2. Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MessageBoxWindow\AddButton.cs" />
+    <Compile Include="MessageBoxWindow\BuildWindow.cs" />
     <Compile Include="MessageBoxWindow\Dialogue.xaml.cs">
       <DependentUpon>Dialogue.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MessageBoxWindow\Icons\IconEnum.cs" />
     <Compile Include="state.cs" />
     <Compile Include="Interactive-UI\CheckBoxAnimator.cs" />
     <Compile Include="Interactive-UI\ThemeAwareness.cs" />

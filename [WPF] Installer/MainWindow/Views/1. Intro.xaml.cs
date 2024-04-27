@@ -54,9 +54,9 @@ namespace Installer.Views
 
         private void Next_Button(object sender, RoutedEventArgs e)
         {
-            MessageBox messageBox = new("test", "rrrrrr\nggg\nggg\nggg\nggg\nggg", MessageBox.Icons.Gear_Tick, "dddd");
-            messageBox.ShowDialog();
 
+            MessageBoxWindow.MessageBox messageBox = new("TITLE MESSAGE", "INET", MessageBoxWindow.MessageBox.Icons.Globe, "Middle Button");
+            messageBox.ShowDialog();
 
             Visibility = Visibility.Collapsed;
             Pin.MainWindow.SelectView.Visibility = Visibility.Visible;
