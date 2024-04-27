@@ -177,6 +177,9 @@
     <Resource Include="MessageBoxWindow\Icons\shell32_1_16802.ico" />
     <Resource Include="MessageBoxWindow\Icons\shell32_48.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Fonts\LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>call ..\..\..\Build-Incrementor.exe ..\..\Properties\AssemblyInfo.cs</PostBuildEvent>
