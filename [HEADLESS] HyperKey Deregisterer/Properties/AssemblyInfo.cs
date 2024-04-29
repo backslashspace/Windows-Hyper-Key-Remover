@@ -1,15 +1,14 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("[HEADLESS-CLI] HyperKey Deregisterer")]
+[assembly: AssemblyTitle("[HEADLESS] HyperKey Deregisterer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("[HEADLESS-CLI] HyperKey Deregisterer")]
+[assembly: AssemblyProduct("[HEADLESS] HyperKey Deregisterer")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -34,5 +33,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 
-[assembly: AssemblyFileVersion("1.0.0.2")]
-[assembly: AssemblyInformationalVersion("1.0-stable")]
+[assembly: AssemblyFileVersion("1.0.0.41")]
+[assembly: AssemblyInformationalVersion("1.0 stable")]

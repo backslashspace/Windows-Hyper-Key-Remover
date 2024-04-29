@@ -143,7 +143,11 @@ namespace MessageBoxWindow
 
         private void SetWindowTheme(object sender, RoutedEventArgs e)
         {
-            Installer.DWMAPI.SetTheme(new System.Windows.Interop.WindowInteropHelper(this).Handle, !(Boolean)Installer.ThemeAwareness.AppsUseLightTheme);
+            try
+            {
+                Installer.DWMAPI.SetTheme(new System.Windows.Interop.WindowInteropHelper(this).Handle, !(Boolean)Installer.ThemeAwareness.AppsUseLightTheme);
+            }
+            catch { }
         }
 
         //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

@@ -188,6 +188,15 @@
     </Window.Resources>
 
     <Grid>
+        <ProgressBar x:Name="UninstallProgressBar" Style="{DynamicResource ProgressBar}"
+            Maximum="10"
+            Minimum="0"
+            Value="0"
+            d:Margin="48,0,48,96"
+            Margin="48,0,48,-33"
+            Height="32"
+            VerticalAlignment="Bottom"/>
+
         <Border x:Name="LogBoxBorder"
             CornerRadius="5"
             Background="#dddde4"
@@ -200,19 +209,10 @@
             Height="117"
             Width="350">
             <TextBox x:Name="LogBox" Style="{StaticResource TextBox}"
-               Background="{Binding Background, ElementName=LogBoxBorder, Mode=OneWay}"
-               d:Text="info here&#xA;a lot more information&#xA;&#xA;something happened!"
-               Margin="6"/>
+                Background="{Binding Background, ElementName=LogBoxBorder, Mode=OneWay}"
+                d:Text="info here&#xA;a lot more information&#xA;&#xA;something happened!"
+                Margin="6"/>
         </Border>
-        
-        <ProgressBar x:Name="UninstallProgressBar" Style="{DynamicResource ProgressBar}"
-            Maximum="10"
-            Minimum="0"
-            Value="0"
-            d:Margin="48,0,48,96"
-            Margin="48,0,48,-33"
-            Height="32"
-            VerticalAlignment="Bottom"/>
 
         <Button x:Name="UninstallButton" Style="{StaticResource Button_Secondary}"
             Content="Uninstall"

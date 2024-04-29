@@ -8,8 +8,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[HEADLESS] HyperKey Deregisterer", "[HEADLESS] HyperKey Deregisterer\[HEADLESS] HyperKey Deregisterer.csproj", "{5C0849FC-9C9F-4383-824F-80DD53C112BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[WPF] Installer", "[WPF] Installer\[WPF] Installer.csproj", "{2B8A867A-FB30-4BD8-BD02-B56FC5F5F81E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{17C86BFA-022F-4A92-989A-972C7E20E8E4} = {17C86BFA-022F-4A92-989A-972C7E20E8E4}
+		{389FD867-21D3-4684-8D2A-8CBA7CDE98C9} = {389FD867-21D3-4684-8D2A-8CBA7CDE98C9}
+		{5C0849FC-9C9F-4383-824F-80DD53C112BE} = {5C0849FC-9C9F-4383-824F-80DD53C112BE}
+		{81A71FC6-A194-40F1-B236-5062767940D8} = {81A71FC6-A194-40F1-B236-5062767940D8}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[WPF] Uninstaller", "[WPF] Uninstaller\[WPF] Uninstaller.csproj", "{81A71FC6-A194-40F1-B236-5062767940D8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{17C86BFA-022F-4A92-989A-972C7E20E8E4} = {17C86BFA-022F-4A92-989A-972C7E20E8E4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[HEADLESS] Uninstaller-Self-Remove", "[WPF] Uninstaller\[HEADLESS] Uninstaller-Self-Remove\[HEADLESS] Uninstaller-Self-Remove.csproj", "{17C86BFA-022F-4A92-989A-972C7E20E8E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +44,10 @@ Global
 		{81A71FC6-A194-40F1-B236-5062767940D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81A71FC6-A194-40F1-B236-5062767940D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81A71FC6-A194-40F1-B236-5062767940D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17C86BFA-022F-4A92-989A-972C7E20E8E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17C86BFA-022F-4A92-989A-972C7E20E8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17C86BFA-022F-4A92-989A-972C7E20E8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17C86BFA-022F-4A92-989A-972C7E20E8E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -18,22 +19,22 @@ namespace Installer.Views
             {
                 if (Config.NeedsCleanUp)
                 {
-                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 13);
+                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 7);
                 }
                 else
                 {
-                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 12);
+                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 6);
                 }
             }
             else
             {
                 if (Config.NeedsCleanUp)
                 {
-                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 9);
+                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 5);
                 }
                 else
                 {
-                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 8);
+                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 4);
                 }
             }
 
@@ -52,7 +53,21 @@ namespace Installer.Views
                 InstallerWorker.RegisterService();
             }
 
+            InstallerWorker.ExtractUninstallerFiles();
+
             InstallerWorker.RegisterWindowAsApp();
+
+            // apply apply to current session
+
+            Process process = new();
+            process.StartInfo.FileName = $"{Config.InstallPath}\\HyperKey-Deregisterer.exe";
+            process.StartInfo.Verb = "runas";
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.WaitForExit();
+
+            InstallerWorker.LogAppend("Applying to current session");
 
             // done
 

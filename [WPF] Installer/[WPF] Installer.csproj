@@ -53,6 +53,11 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\7. Nuget Packages\System.Text.RegularExpressions.4.3.1\lib\net463\System.Text.RegularExpressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -67,7 +72,8 @@
     <Compile Include="Install\2. Extract-Remover.cs" />
     <Compile Include="Install\3. Configure-User-Init.cs" />
     <Compile Include="Install\4. Extract-Service.cs" />
-    <Compile Include="Install\5. Register-Service.cs" />
+    <Compile Include="Install\5. Extract-Uninstaller.cs" />
+    <Compile Include="Install\7. Register-Service.cs" />
     <Compile Include="Install\6. Register-Application.cs" />
     <Compile Include="Install\_Meth-Relay.cs" />
     <Compile Include="MainWindow\Views\1. Intro.xaml.cs">
@@ -142,6 +148,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="resources\HyperKey Deregisterer Uninstaller.exe.config" />
+    <EmbeddedResource Include="resources\HyperKey-Deregisterer.exe.config" />
+    <EmbeddedResource Include="resources\User-init Enforcer.exe.config" />
     <Resource Include="Fonts\Inter SemiBold.ttf" />
     <Resource Include="Fonts\Inter Medium.ttf" />
     <Resource Include="Fonts\Inter Display Medium.ttf" />
@@ -150,6 +159,7 @@
     <Resource Include="Fonts\Inter.ttf" />
     <None Include="App\app.manifest" />
     <Resource Include="Fonts\Cascadia Mono.ttf" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -180,8 +190,18 @@
   <ItemGroup>
     <None Include="Fonts\LICENSE.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resources\HyperKey Deregisterer Uninstaller.exe" />
+    <EmbeddedResource Include="resources\HyperKey-Deregisterer.exe" />
+    <EmbeddedResource Include="resources\User-init Enforcer.exe" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>call ..\..\..\Build-Incrementor.exe ..\..\Properties\AssemblyInfo.cs</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>call copy "..\..\..\[HEADLESS] HyperKey Deregisterer\bin\Release" "..\..\resources"
+call copy "..\..\..\[SERVICE] User-init Enforcer\bin\Release" "..\..\resources"
+call copy "..\..\..\[WPF] Uninstaller\bin\Release" "..\..\resources"</PreBuildEvent>
   </PropertyGroup>
 </Project>

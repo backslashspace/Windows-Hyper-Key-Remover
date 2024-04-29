@@ -2,13 +2,13 @@
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace Installer
+namespace Uninstaller
 {
-    internal static partial class InstallerWorker
+    public partial class MainWindow
     {
         private static Double CurrentProgressState;
 
-        private static void UpdateProgressBar()
+        internal static void UpdateProgressBar()
         {
             Pin.MainWindow.Dispatcher.Invoke(() =>
             {
@@ -17,15 +17,7 @@ namespace Installer
                 doubleAnimation.To = ++CurrentProgressState;
                 doubleAnimation.DecelerationRatio = 1;
 
-                Pin.MainWindow.ResultView.InstallProgressBar.BeginAnimation(ProgressBar.ValueProperty, doubleAnimation);
-            });
-        }
-
-        internal static void LogAppend(String newLine)
-        {
-            Pin.MainWindow.Dispatcher.Invoke(() =>
-            {
-                Pin.MainWindow.ResultView.LogBox.Text += newLine;
+                Pin.MainWindow.UninstallProgressBar.BeginAnimation(ProgressBar.ValueProperty, doubleAnimation);
             });
         }
     }
