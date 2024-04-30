@@ -19,7 +19,7 @@ namespace Installer
                 Pin.MainWindow.Dispatcher.Invoke(() =>
                 {
                     MessageBoxWindow.MessageBox messageBox = new("Error", $"Unable to perform post install clean up:\n\n{ex.Message}", MessageBoxWindow.MessageBox.Icons.Circle_Error, "Exit");
-            
+
                     messageBox.ShowDialog();
                 });
 

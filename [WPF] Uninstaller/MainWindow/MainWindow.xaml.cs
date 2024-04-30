@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Pipes;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
 namespace Uninstaller
 {
@@ -66,16 +64,21 @@ namespace Uninstaller
             {
                 try
                 {
-                    String tempPath = System.IO.Path.GetTempPath() + "\\hyperkeydereguninstallhelper";
+                    String tempPath = Path.GetTempPath() + "hyperkeydereguninstallhelper";
 
                     Directory.CreateDirectory(tempPath);
 
-                    using FileStream exeFile = File.Create($"{tempPath}\\Hyper Key Uninstall Helper.exe");
-                    using FileStream confFile = File.Create($"{tempPath}\\Hyper Key Uninstall Helper.exe.config");
-
                     Assembly assembly = Assembly.GetExecutingAssembly();
-                    assembly.GetManifestResourceStream("Uninstaller.Hyper Key Uninstall Helper.exe").CopyTo(exeFile);
-                    assembly.GetManifestResourceStream("Uninstaller.Hyper Key Uninstall Helper.exe.config").CopyTo(confFile);
+
+                    using (FileStream exeFile = File.Create($"{tempPath}\\Hyper Key Uninstall Helper.exe"))
+                    {
+                        assembly.GetManifestResourceStream("Uninstaller.Hyper Key Uninstall Helper.exe").CopyTo(exeFile);
+                    }
+
+                    using (FileStream confFile = File.Create($"{tempPath}\\Hyper Key Uninstall Helper.exe.config"))
+                    {
+                        assembly.GetManifestResourceStream("Uninstaller.Hyper Key Uninstall Helper.exe.config").CopyTo(confFile);
+                    }
 
                     Process process = new();
                     process.StartInfo.FileName = $"{tempPath}\\Hyper Key Uninstall Helper.exe";
