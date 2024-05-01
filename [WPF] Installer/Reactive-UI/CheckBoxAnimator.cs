@@ -96,15 +96,15 @@ namespace Installer
                 throw new InvalidOperationException("CheckBoxAnimator was not initialized");
             }
 
-            checkBox.MouseEnter += CheckBox_MouseEnter.Invoke;
-            checkBox.MouseLeave += CheckBox_MouseLeave.Invoke;
-            checkBox.PreviewMouseDown += CheckBox_MouseDown.Invoke;
-            checkBox.Checked += CheckBox_CheckStateChanged.Invoke;
-            checkBox.Unchecked += CheckBox_CheckStateChanged.Invoke;
+            checkBox.MouseEnter += CheckBox_MouseEnter;
+            checkBox.MouseLeave += CheckBox_MouseLeave;
+            checkBox.PreviewMouseDown += CheckBox_MouseDown;
+            checkBox.Checked += CheckBox_CheckStateChanged;
+            checkBox.Unchecked += CheckBox_CheckStateChanged;
         }
 
-        #region EventDelegates
-        private static readonly Action<object, MouseEventArgs> CheckBox_MouseEnter = delegate (object sender, MouseEventArgs e)
+        #region EventHandler
+        private static void CheckBox_MouseEnter(object sender, MouseEventArgs e)
         {
             if (sender == null) { return; }
             CheckBox checkBox = sender as CheckBox;
@@ -118,9 +118,9 @@ namespace Installer
             {
                 MouseEnter_Unchecked_Begin(ref checkBox);
             }
-        };
+        }
 
-        private static readonly Action<object, MouseEventArgs> CheckBox_MouseLeave = delegate (object sender, MouseEventArgs e)
+        private static void CheckBox_MouseLeave(object sender, MouseEventArgs e)
         {
             if (sender == null) { return; }
             CheckBox checkBox = sender as CheckBox;
@@ -134,9 +134,9 @@ namespace Installer
             {
                 MouseLeave_Unchecked_Begin(ref checkBox);
             }
-        };
+        }
 
-        private static readonly Action<object, MouseButtonEventArgs> CheckBox_MouseDown = delegate (object sender, MouseButtonEventArgs e)
+        private static void CheckBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (sender == null) { return; }
             CheckBox checkBox = sender as CheckBox;
@@ -150,9 +150,9 @@ namespace Installer
             {
                 MouseDown_Begin_Unchecked(ref checkBox);
             }
-        };
+        }
 
-        private static readonly Action<object, RoutedEventArgs> CheckBox_CheckStateChanged = delegate (object sender, RoutedEventArgs e)
+        private static void CheckBox_CheckStateChanged(object sender, RoutedEventArgs e)
         {
             if (sender == null) { return; }
             CheckBox checkBox = sender as CheckBox;
@@ -166,7 +166,7 @@ namespace Installer
             {
                 MouseUp_Unchecked_Begin(ref checkBox);
             }
-        };
+        }
         #endregion
 
         private static readonly PropertyPath BackgroundPropertyPath = new("(Control.Background).(SolidColorBrush.Color)");

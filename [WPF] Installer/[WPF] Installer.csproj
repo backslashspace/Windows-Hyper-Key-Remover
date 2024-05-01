@@ -75,7 +75,8 @@
     <Compile Include="Install\5. Extract-Uninstaller.cs" />
     <Compile Include="Install\7. Register-Service.cs" />
     <Compile Include="Install\6. Register-Application.cs" />
-    <Compile Include="Install\_Meth-Relay.cs" />
+    <Compile Include="Install\ErrorExit-TellUser.cs" />
+    <Compile Include="Install\Progress-UpdateUI.cs" />
     <Compile Include="MainWindow\Views\1. Intro.xaml.cs">
       <DependentUpon>1. Intro.xaml</DependentUpon>
     </Compile>
@@ -91,9 +92,9 @@
       <DependentUpon>Dialogue.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageBoxWindow\Icons\IconEnum.cs" />
-    <Compile Include="state.cs" />
-    <Compile Include="Interactive-UI\CheckBoxAnimator.cs" />
-    <Compile Include="Interactive-UI\ThemeAwareness.cs" />
+    <Compile Include="config.cs" />
+    <Compile Include="Reactive-UI\CheckBoxAnimator.cs" />
+    <Compile Include="Reactive-UI\ThemeAwareness.cs" />
     <Compile Include="WinAPI\WMI-Registry-Events.cs" />
     <Page Include="Dictionary.xaml">
       <SubType>Designer</SubType>
@@ -151,14 +152,14 @@
     <EmbeddedResource Include="resources\HyperKey Deregisterer Uninstaller.exe.config" />
     <EmbeddedResource Include="resources\HyperKey-Deregisterer.exe.config" />
     <EmbeddedResource Include="resources\User-init Enforcer.exe.config" />
-    <Resource Include="Fonts\Inter SemiBold.ttf" />
-    <Resource Include="Fonts\Inter Medium.ttf" />
-    <Resource Include="Fonts\Inter Display Medium.ttf" />
-    <Resource Include="Fonts\Inter Display SemiBold.ttf" />
-    <Resource Include="Fonts\Inter Display.ttf" />
-    <Resource Include="Fonts\Inter.ttf" />
+    <Resource Include="resources\Fonts\Inter SemiBold.ttf" />
+    <Resource Include="resources\Fonts\Inter Medium.ttf" />
+    <Resource Include="resources\Fonts\Inter Display Medium.ttf" />
+    <Resource Include="resources\Fonts\Inter Display SemiBold.ttf" />
+    <Resource Include="resources\Fonts\Inter Display.ttf" />
+    <Resource Include="resources\Fonts\Inter.ttf" />
     <None Include="App\app.manifest" />
-    <Resource Include="Fonts\Cascadia Mono.ttf" />
+    <Resource Include="resources\Fonts\Cascadia Mono.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -188,7 +189,7 @@
     <Resource Include="MessageBoxWindow\Icons\shell32_48.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Fonts\LICENSE.txt" />
+    <None Include="resources\Fonts\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="resources\HyperKey Deregisterer Uninstaller.exe" />

@@ -13,89 +13,83 @@ namespace Installer.Views
             InitializeComponent();
         }
 
-        internal static void InstallWorker(Boolean installService)
+        internal static void InstallWorker()
         {
-            if (installService)
+            SetProgressBarMaxValue();
+
+            if (InstallerSettings.NeedsCleanUp)
             {
-                if (Config.NeedsCleanUp)
-                {
-                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 7);
-                }
-                else
-                {
-                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 6);
-                }
-            }
-            else
-            {
-                if (Config.NeedsCleanUp)
-                {
-                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 5);
-                }
-                else
-                {
-                    Pin.MainWindow.Dispatcher.Invoke(() => Pin.MainWindow.ResultView.InstallProgressBar.Maximum = 4);
-                }
+                Install.CleanUp();
             }
 
-            if (Config.NeedsCleanUp)
+            Install.ExtractHyperKeyRemover();
+
+            Install.ApplyCustomUserInit();
+
+            if (InstallerSettings.InstallSelfHealingService)
             {
-                InstallerWorker.CleanUp();
+                Install.ExtractServiceFiles();
+                Install.RegisterService();
             }
 
-            InstallerWorker.ExtractHyperKeyRemover();
+            Install.ExtractUninstallerFiles();
 
-            InstallerWorker.ApplyCustomUserInit();
+            Install.RegisterWindowAsApp();
 
-            if (installService)
-            {
-                InstallerWorker.ExtractServiceFiles();
-                InstallerWorker.RegisterService();
-            }
-
-            InstallerWorker.ExtractUninstallerFiles();
-
-            InstallerWorker.RegisterWindowAsApp();
-
-            // apply apply to current session
-
-            Process process = new();
-            process.StartInfo.FileName = $"{Config.InstallPath}\\HyperKey-Deregisterer.exe";
-            process.StartInfo.Verb = "runas";
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            process.StartInfo.CreateNoWindow = true;
-            process.Start();
-            process.WaitForExit();
-
-            InstallerWorker.LogAppend("Applying to current session");
+            RunProgram();
 
             // done
 
             ShowFinishButton();
         }
 
+        private static void SetProgressBarMaxValue()
+        {
+            Byte maxProgressValue;
+
+            if (InstallerSettings.InstallSelfHealingService)
+            {
+                if (InstallerSettings.NeedsCleanUp) maxProgressValue = 7;
+                else maxProgressValue = 6;
+            }
+            else
+            {
+                if (InstallerSettings.NeedsCleanUp) maxProgressValue = 5;
+                else maxProgressValue = 4;
+            }
+
+            UI.Dispatcher.Invoke(() => UI.MainWindow.ResultView.InstallProgressBar.Maximum = maxProgressValue);
+        }
+
+        private static void RunProgram()
+        {
+            Process process = new();
+            process.StartInfo.FileName = $"{InstallerSettings.InstallPath}\\HyperKey-Deregisterer.exe";
+            process.StartInfo.Verb = "runas";
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.WaitForExit();
+
+            Install.LogAppend("Applying to current session");
+        }
+
         private static void ShowFinishButton()
         {
-            Pin.MainWindow.Dispatcher.Invoke(() =>
+            UI.Dispatcher.Invoke(() =>
             {
                 DoubleAnimation opacity = new();
-                opacity.Duration = MainWindow.Duration;
+                opacity.Duration = UISettings.AnimationDuration;
                 opacity.To = 1;
                 opacity.DecelerationRatio = 1;
 
-                ThicknessAnimation margin = new();
-                margin.Duration = MainWindow.Duration;
-                margin.To = new(0, 0, 48, 32);
-                margin.DecelerationRatio = 1;
-
-                Pin.MainWindow.ResultView.FinishButton.BeginAnimation(Button.OpacityProperty, opacity);
-                Pin.MainWindow.ResultView.FinishButton.BeginAnimation(Button.MarginProperty, margin);
+                UI.MainWindow.ResultView.FinishButton.BeginAnimation(Button.OpacityProperty, opacity);
             });
         }
 
-        private void Finish(object sender, RoutedEventArgs e)
+        private void FinishButton_Click(object sender, RoutedEventArgs e)
         {
-            Pin.MainWindow.Close();
+            UI.MainWindow.Close();
         }
     }
 }

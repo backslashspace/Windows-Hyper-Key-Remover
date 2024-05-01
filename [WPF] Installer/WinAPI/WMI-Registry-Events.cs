@@ -8,11 +8,11 @@ namespace Installer
     {
         internal ManagementEventWatcher Watcher { get; private set; }
 
-        internal RegistryEvents_CurrentUser(String doubleEscapedSecondLevelString, String value, Action<object, EventArrivedEventArgs> action)
+        internal RegistryEvents_CurrentUser(String doubleEscapedSecondLevelPath, String value, Action<object, EventArrivedEventArgs> action)
         {
             //sample keyPath = @"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Accent";
             WindowsIdentity currentUser = WindowsIdentity.GetCurrent();
-            WqlEventQuery query = new($@"SELECT * FROM RegistryValueChangeEvent WHERE Hive='HKEY_USERS' AND KeyPath='{currentUser.User.Value}\\{doubleEscapedSecondLevelString}' AND ValueName='{value}'");
+            WqlEventQuery query = new($@"SELECT * FROM RegistryValueChangeEvent WHERE Hive='HKEY_USERS' AND KeyPath='{currentUser.User.Value}\\{doubleEscapedSecondLevelPath}' AND ValueName='{value}'");
 
             Watcher = new ManagementEventWatcher(query);
 

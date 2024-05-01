@@ -24,13 +24,13 @@ namespace Installer.Views
 
         private void CheckInstallPath(object sender, RoutedEventArgs e)
         {
-            if (Directory.Exists(Config.InstallPath))
+            if (Directory.Exists(InstallerSettings.InstallPath))
             {
                 ActionField.Text = "-";
                 ActionField.Foreground = ActionFieldColorRed;
                 ActionField.Margin = ActionFieldColorRedThickness;
 
-                Config.NeedsCleanUp = true;
+                InstallerSettings.NeedsCleanUp = true;
             }
             else
             {
@@ -38,7 +38,7 @@ namespace Installer.Views
                 ActionField.Foreground = ActionFieldColorGreen;
                 ActionField.Margin = ActionFieldColorGreenThickness;
 
-                Config.NeedsCleanUp = false;
+                InstallerSettings.NeedsCleanUp = false;
             }
         }
 
@@ -55,12 +55,12 @@ namespace Installer.Views
         private void Next_Button(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Collapsed;
-            Pin.MainWindow.SelectView.Visibility = Visibility.Visible;
+            UI.MainWindow.SelectView.Visibility = Visibility.Visible;
         }
 
         private void Cancel_Button(object sender, RoutedEventArgs e)
         {
-            Pin.MainWindow.Close();
+            UI.MainWindow.Close();
         }
     }
 }

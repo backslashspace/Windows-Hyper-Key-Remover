@@ -2,11 +2,10 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Windows.Media;
 
 namespace Installer
 {
-    internal static partial class InstallerWorker
+    internal static partial class Install
     {
         internal static void RegisterWindowAsApp()
         {
@@ -14,7 +13,7 @@ namespace Installer
 
             try
             {
-                DirectoryInfo directoryInfo = new(Config.InstallPath);
+                DirectoryInfo directoryInfo = new(InstallerSettings.InstallPath);
 
                 UInt64 size = 0;
 
@@ -29,25 +28,16 @@ namespace Installer
             }
             catch (Exception ex)
             {
-                Pin.MainWindow.Dispatcher.Invoke(() =>
-                {
-                    Pin.MainWindow.ResultView.InstallProgressBar.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffcc00"));
-
-                    MessageBoxWindow.MessageBox messageBox = new("Error", $"Unable to calculate size of install directory:\n{ex.Message}", MessageBoxWindow.MessageBox.Icons.Circle_Error, "Exit");
-
-                    messageBox.ShowDialog();
-                });
-
-                Environment.Exit(-1);
+                ErrorExit($"Unable to calculate size of install directory:\n{ex.Message}");
             }
 
             String REGPATH = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Hyper Key Deregisterer";
 
-            String displayIcon = $"{Config.InstallPath}\\HyperKey-Deregisterer.exe";
+            String displayIcon = $"{InstallerSettings.InstallPath}\\HyperKey-Deregisterer.exe";
             String displayName = "Windows Hyper Key Remover";
-            String displayVersion = $"{Assembly.GetExecutingAssembly().GetName().Version}";
+            String displayVersion = $"{InstallerSettings.assembly.GetName().Version}"; // todo: use file version
             String publisher = "https://github.com/backslashspace";
-            String uninstallString = $"{Config.InstallPath}\\HyperKey Deregisterer Uninstaller.exe";
+            String uninstallString = $"{InstallerSettings.InstallPath}\\HyperKey Deregisterer Uninstaller.exe";
 
             //
 
@@ -64,16 +54,7 @@ namespace Installer
             }
             catch (Exception ex)
             {
-                Pin.MainWindow.Dispatcher.Invoke(() =>
-                {
-                    Pin.MainWindow.ResultView.InstallProgressBar.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffcc00"));
-
-                    MessageBoxWindow.MessageBox messageBox = new("Error", $"Unable to set registry values:\n{ex.Message}", MessageBoxWindow.MessageBox.Icons.Circle_Error, "Exit");
-
-                    messageBox.ShowDialog();
-                });
-
-                Environment.Exit(-1);
+                ErrorExit($"Unable to set registry values:\n{ex.Message}");
             }
 
             LogAppend("Registered as Windows App\n");

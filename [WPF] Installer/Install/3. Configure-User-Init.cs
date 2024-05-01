@@ -1,28 +1,26 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using System.Windows.Media;
 using Microsoft.Win32;
 
 namespace Installer
 {
-    internal static partial class InstallerWorker
+    internal static partial class Install
     {
-        private const String ExeRegex = ",\\s*\"C:\\\\Program Files\\\\Hyper Key Remover\\\\HyperKey-Deregisterer\\.exe\"(\\s*,|\\s*\\z)";
+        
 
         internal static void ApplyCustomUserInit()
         {
-            Object rawUserInitString = null;
-            String confString = ", \"C:\\Program Files\\Hyper Key Remover\\HyperKey-Deregisterer.exe\",";
-
+            Object rawUserInitString;
+            
             try
             {
                 rawUserInitString = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Userinit", null);
             
                 String userInitString = (String)rawUserInitString;
 
-                if (!Regex.Match(userInitString, ExeRegex, RegexOptions.IgnoreCase).Success)
+                if (!Regex.Match(userInitString, InstallerSettings.UserInitRegexString, RegexOptions.IgnoreCase).Success)
                 {
-                    userInitString += confString;
+                    userInitString += InstallerSettings.UserInitString;
 
                     Registry.SetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Userinit", userInitString, RegistryValueKind.String);
 
@@ -42,16 +40,7 @@ namespace Installer
             }
             catch (Exception ex)
             {
-                Pin.MainWindow.Dispatcher.Invoke(() =>
-                {
-                    Pin.MainWindow.ResultView.InstallProgressBar.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffcc00"));
-
-                    MessageBoxWindow.MessageBox messageBox = new("Error", $"Unable to configure user init:\n\n{ex.Message}", MessageBoxWindow.MessageBox.Icons.Circle_Error, "Exit");
-
-                    messageBox.ShowDialog();
-                });
-
-                Environment.Exit(-1);
+                ErrorExit($"Unable to configure user init:\n\n{ex.Message}");
             }
         }
     }

@@ -18,18 +18,18 @@ namespace Installer.Views
         private void Next_Button(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Collapsed;
-            Pin.MainWindow.ResultView.Visibility = Visibility.Visible;
+            UI.MainWindow.ResultView.Visibility = Visibility.Visible;
 
-            Boolean useSelfHealing = (Boolean)SelfHealingCheckBox.IsChecked;
+            InstallerSettings.InstallSelfHealingService = (Boolean)SelfHealingCheckBox.IsChecked;
 
-            Thread thread = new(() => Result.InstallWorker(useSelfHealing));
+            Thread thread = new(() => Result.InstallWorker());
             thread.Start();
         }
 
         private void Back_Button(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Collapsed;
-            Pin.MainWindow.IntroView.Visibility = Visibility.Visible;
+            UI.MainWindow.IntroView.Visibility = Visibility.Visible;
         }
     }
 }

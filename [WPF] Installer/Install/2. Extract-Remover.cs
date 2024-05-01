@@ -1,40 +1,32 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
-using System.Windows.Media;
 
 namespace Installer
 {
-    internal static partial class InstallerWorker
+    internal static partial class Install
     {
         internal static void ExtractHyperKeyRemover()
         {
             try
             {
-                Directory.CreateDirectory(Config.InstallPath);
+                Directory.CreateDirectory(InstallerSettings.InstallPath);
 
-                using FileStream exeFile = File.Create($"{Config.InstallPath}\\HyperKey-Deregisterer.exe");
-                using FileStream confFile = File.Create($"{Config.InstallPath}\\HyperKey-Deregisterer.exe.config");
+                using (FileStream exeFile = File.Create($"{InstallerSettings.InstallPath}\\HyperKey-Deregisterer.exe"))
+                {
+                    InstallerSettings.assembly.GetManifestResourceStream("Installer.resources.HyperKey-Deregisterer.exe").CopyTo(exeFile);
+                }
 
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                assembly.GetManifestResourceStream("Installer.resources.HyperKey-Deregisterer.exe").CopyTo(exeFile);
-                assembly.GetManifestResourceStream("Installer.resources.HyperKey-Deregisterer.exe.config").CopyTo(confFile);
+                using (FileStream confFile = File.Create($"{InstallerSettings.InstallPath}\\HyperKey-Deregisterer.exe.config"))
+                {
+                    InstallerSettings.assembly.GetManifestResourceStream("Installer.resources.HyperKey-Deregisterer.exe.config").CopyTo(confFile);
+                }
 
                 LogAppend("Extracted HyperKey Deregisterer\n");
                 UpdateProgressBar();
             }
             catch (Exception ex)
             {
-                Pin.MainWindow.Dispatcher.Invoke(() =>
-                {
-                    Pin.MainWindow.ResultView.InstallProgressBar.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffcc00"));
-
-                    MessageBoxWindow.MessageBox messageBox = new("Error", $"Unable to extract HyperKey Deregisterer application:\n\n{ex.Message}", MessageBoxWindow.MessageBox.Icons.Circle_Error, "Exit");
-
-                    messageBox.ShowDialog();
-                });
-
-                Environment.Exit(-1);
+                ErrorExit($"Unable to extract HyperKey Deregisterer application:\n\n{ex.Message}");
             }
         }
     }

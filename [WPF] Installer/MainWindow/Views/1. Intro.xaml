@@ -72,7 +72,6 @@
             VerticalAlignment="Bottom"
             Height="32"
             Width="172"
-            FontFamily="{StaticResource Inter Medium}"
             Content="Next" Click="Next_Button"/>
 
         <Button Style="{StaticResource Button_Secondary}"
@@ -81,7 +80,6 @@
             VerticalAlignment="Bottom"
             Height="32"
             Width="172"
-            FontFamily="{StaticResource Inter}"
             Content="Cancel"
             Click="Cancel_Button"/>
     </Grid>

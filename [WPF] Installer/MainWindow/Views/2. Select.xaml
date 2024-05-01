@@ -8,6 +8,7 @@
              d:DesignHeight="400" d:DesignWidth="600">
 
     <Grid>
+        
         <TextBlock
             Text="Select components to install"
             Height="28" Width="330"
@@ -66,7 +67,6 @@
             VerticalAlignment="Bottom"
             Height="32"
             Width="172"
-            FontFamily="{StaticResource Inter Medium}"
             Content="Next" Click="Next_Button"/>
 
         <Button Style="{StaticResource Button_Secondary}"
@@ -75,8 +75,8 @@
             VerticalAlignment="Bottom"
             Height="32"
             Width="172"
-            FontFamily="{StaticResource Inter}"
             Content="Back"
             Click="Back_Button"/>
     </Grid>
+    
 </UserControl>

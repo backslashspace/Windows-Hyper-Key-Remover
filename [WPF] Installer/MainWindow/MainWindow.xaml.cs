@@ -1,29 +1,26 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Installer
 {
     public partial class MainWindow : Window
     {
-        internal static IntPtr WindowHandle { get; private set; }
-
-        internal static Duration Duration = new(TimeSpan.FromSeconds(1));
-
         public MainWindow()
         {
             InitializeComponent();
-            Pin.MainWindow = this;
+            UI.MainWindow = this;
+            UI.Dispatcher = Dispatcher;
 
-            Loaded += InitThemeAwareness;
+            Loaded += InitializeApplicationThemeAwareness;
 
             Title += $"[{Program.AssemblyInformationalVersion} | Build {Program.AssemblyFileVersion.Revision}]";
         }
 
-        private void InitThemeAwareness(object sender, RoutedEventArgs e)
+        private void InitializeApplicationThemeAwareness(object sender, RoutedEventArgs e)
         {
-            WindowHandle = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            UI.MainWindowHandle = new System.Windows.Interop.WindowInteropHelper(this).Handle;
 
-            ThemeAwareness.StartExternalEventListener();
+            DWMAPI.Initialize();
+            ThemeAwareness.Initialize();
         }
     }
 }

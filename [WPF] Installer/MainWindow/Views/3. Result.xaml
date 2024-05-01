@@ -8,6 +8,7 @@
              d:DesignHeight="400" d:DesignWidth="600">
 
     <Grid>
+        
         <Border x:Name="outer" CornerRadius="5" Background="#101010" Height="153" VerticalAlignment="Bottom" Margin="48,0,48,176">
             <TextBox x:Name="LogBox" Style="{DynamicResource TextBox}"
                 d:Text="info here&#xA;a lot more information&#xA;&#xA;something happened!"
@@ -23,16 +24,15 @@
 
         <Button x:Name="FinishButton" Style="{StaticResource Button_Secondary}"
             IsEnabled="True"
-            d:Margin="0,0,48,32"
-            Margin="0,0,48,-32"
+            Margin="0,0,48,32"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            FontFamily="{StaticResource Inter}"
             Height="32"
             Width="172"
             Content="Finish"
             d:Opacity="1"
             Opacity="0"
-            Click="Finish"/>
+            Click="FinishButton_Click"/>
     </Grid>
+    
 </UserControl>

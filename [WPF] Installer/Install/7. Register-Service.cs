@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using System.Windows.Media;
 
 namespace Installer
 {
-    internal static partial class InstallerWorker
+    internal static partial class Install
     {
         internal static void RegisterService()
         {
@@ -29,25 +28,14 @@ namespace Installer
 
                 if (exitCode != 0)
                 {
-                    Pin.MainWindow.Dispatcher.Invoke(() =>
+                    if (exitCode == 1072)
                     {
-                        Pin.MainWindow.ResultView.InstallProgressBar.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffcc00"));
-
-                        MessageBoxWindow.MessageBox messageBox;
-
-                        if (exitCode == 1072)
-                        {
-                            messageBox = new("SC.exe error", $"Unable to register Self-Healing service:\n\nSC exit code was: {exitCode}\n\nTry again after closing all instances of mmc.exe", MessageBoxWindow.MessageBox.Icons.Circle_Error, "Exit");
-                        }
-                        else
-                        {
-                            messageBox = new("SC.exe error", $"Unable to register Self-Healing service:\n\nSC exit code was: {exitCode}", MessageBoxWindow.MessageBox.Icons.Circle_Error, "Exit");
-                        }
-
-                        messageBox.ShowDialog();
-                    });
-
-                    Environment.Exit(-1);
+                        ErrorExit($"Unable to register Self-Healing service:\n\nSC exit code was: {exitCode}\n\nTry again after closing all instances of mmc.exe");
+                    }
+                    else
+                    {
+                        ErrorExit($"Unable to register Self-Healing service:\n\nSC exit code was: {exitCode}");
+                    }
                 }
 
                 LogAppend("Registered Self-Healing Service\n");
@@ -55,16 +43,7 @@ namespace Installer
             }
             catch (Exception ex)
             {
-                Pin.MainWindow.Dispatcher.Invoke(() =>
-                {
-                    Pin.MainWindow.ResultView.InstallProgressBar.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffcc00"));
-
-                    MessageBoxWindow.MessageBox messageBox = new("Error", $"Unable to extract HyperKey Deregisterer application:\n{ex.Message}", MessageBoxWindow.MessageBox.Icons.Circle_Error, "Exit");
-
-                    messageBox.ShowDialog();
-                });
-
-                Environment.Exit(-1);
+                ErrorExit($"Unable to extract HyperKey Deregisterer application:\n{ex.Message}");
             }
         }
 
@@ -80,7 +59,7 @@ namespace Installer
 
             if (action == SCAction.Create)
             {
-                process.StartInfo.Arguments = $"create \"Hyper Key User-Init Enforcer\" type=own start=auto binpath=\"{Config.InstallPath}\\User-init Enforcer.exe\" displayname=\"Windows Hyper Key Deregisterer Self-Healing Service\"";
+                process.StartInfo.Arguments = $"create \"Hyper Key User-Init Enforcer\" type=own start=auto binpath=\"{InstallerSettings.InstallPath}\\User-init Enforcer.exe\" displayname=\"Windows Hyper Key Deregisterer Self-Healing Service\"";
             }
             else
             {
