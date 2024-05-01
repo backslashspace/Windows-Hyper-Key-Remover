@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -35,7 +36,7 @@ namespace Installer
 
             String displayIcon = $"{InstallerSettings.InstallPath}\\HyperKey-Deregisterer.exe";
             String displayName = "Windows Hyper Key Remover";
-            String displayVersion = $"{InstallerSettings.assembly.GetName().Version}"; // todo: use file version
+            String displayVersion = $"{Program.AssemblyFileVersion.Major}.{Program.AssemblyFileVersion.Minor}.{Program.AssemblyFileVersion.Build}.{Program.AssemblyFileVersion.Revision}";
             String publisher = "https://github.com/backslashspace";
             String uninstallString = $"{InstallerSettings.InstallPath}\\HyperKey Deregisterer Uninstaller.exe";
 
