@@ -17,41 +17,43 @@ namespace Installer
 
             SetDefaultColors();
 
+            Double duration = 0.05;
+
             #region MouseEnter
-            MouseEnter_Unchecked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
-            MouseEnter_Unchecked_BorderBrushColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
-            MouseEnter_Checked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
+            MouseEnter_Unchecked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(duration);
+            MouseEnter_Unchecked_BorderBrushColorAnimation.Duration = TimeSpan.FromSeconds(duration);
+            MouseEnter_Checked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(duration);
             MouseEnter_Unchecked_Storyboard.Children.Add(MouseEnter_Unchecked_BackgroundColorAnimation);
             MouseEnter_Unchecked_Storyboard.Children.Add(MouseEnter_Unchecked_BorderBrushColorAnimation);
             MouseEnter_Checked_Storyboard.Children.Add(MouseEnter_Checked_BackgroundColorAnimation);
             #endregion
 
             #region MouseLeave
-            MouseLeave_Unchecked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
-            MouseLeave_Unchecked_BorderBrushColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
-            MouseLeave_Checked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
+            MouseLeave_Unchecked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(duration);
+            MouseLeave_Unchecked_BorderBrushColorAnimation.Duration = TimeSpan.FromSeconds(duration);
+            MouseLeave_Checked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(duration);
             MouseLeave_Unchecked_Storyboard.Children.Add(MouseLeave_Unchecked_BackgroundColorAnimation);
             MouseLeave_Unchecked_Storyboard.Children.Add(MouseLeave_Unchecked_BorderBrushColorAnimation);
             MouseLeave_Checked_Storyboard.Children.Add(MouseLeave_Checked_BackgroundColorAnimation);
             #endregion
 
             #region MouseDown
-            MouseDown_Unchecked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
-            MouseDown_Unchecked_BorderBrushColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
-            MouseDown_Checked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
+            MouseDown_Unchecked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(duration);
+            MouseDown_Unchecked_BorderBrushColorAnimation.Duration = TimeSpan.FromSeconds(duration);
+            MouseDown_Checked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(duration);
             MouseDown_Unchecked_Storyboard.Children.Add(MouseDown_Unchecked_BackgroundColorAnimation);
             MouseDown_Unchecked_Storyboard.Children.Add(MouseDown_Unchecked_BorderBrushColorAnimation);
             MouseDown_Checked_Storyboard.Children.Add(MouseDown_Checked_BackgroundColorAnimation);
             #endregion
 
             #region MouseUp
-            MouseUp_Unchecked_BorderThicknessAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.05));
+            MouseUp_Unchecked_BorderThicknessAnimation.Duration = new Duration(TimeSpan.FromSeconds(duration));
             MouseUp_Unchecked_BorderThicknessAnimation.To = new Thickness(1);
-            MouseUp_Unchecked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
-            MouseUp_Unchecked_BorderBrushColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
-            MouseUp_Checked_BorderThicknessAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.05));
+            MouseUp_Unchecked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(duration);
+            MouseUp_Unchecked_BorderBrushColorAnimation.Duration = TimeSpan.FromSeconds(duration);
+            MouseUp_Checked_BorderThicknessAnimation.Duration = new Duration(TimeSpan.FromSeconds(duration));
             MouseUp_Checked_BorderThicknessAnimation.To = new Thickness(0);
-            MouseUp_Checked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(0.05);
+            MouseUp_Checked_BackgroundColorAnimation.Duration = TimeSpan.FromSeconds(duration);
             MouseUp_Unchecked_Storyboard.Children.Add(MouseUp_Unchecked_BorderThicknessAnimation);
             MouseUp_Unchecked_Storyboard.Children.Add(MouseUp_Unchecked_BackgroundColorAnimation);
             MouseUp_Unchecked_Storyboard.Children.Add(MouseUp_Unchecked_BorderBrushColorAnimation);
@@ -91,10 +93,7 @@ namespace Installer
 
         internal static void HookChild(ref readonly CheckBox checkBox)
         {
-            if (!Initialized)
-            {
-                throw new InvalidOperationException("CheckBoxAnimator was not initialized");
-            }
+            if (!Initialized) throw new InvalidOperationException("CheckBoxAnimator was not initialized");
 
             checkBox.MouseEnter += CheckBox_MouseEnter;
             checkBox.MouseLeave += CheckBox_MouseLeave;

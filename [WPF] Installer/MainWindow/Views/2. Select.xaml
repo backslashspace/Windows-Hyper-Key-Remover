@@ -61,7 +61,7 @@
             VerticalAlignment="Top" HorizontalAlignment="Left"
             Margin="77,192,0,0"/>
 
-        <Button Style="{StaticResource Button_Primary}"
+        <Button x:Name="NextButton" Style="{StaticResource Button_Primary}"
             Margin="0,0,24,24"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"

@@ -13,13 +13,40 @@
     <FontFamily x:Key="Cascadia Mono">pack://application:,,,/resources/Fonts/#Cascadia Mono</FontFamily>
     <!--#endregion-->
 
-    <SolidColorBrush x:Key="FontColor_Display" Color="#fbf8fd"/>
-    <SolidColorBrush x:Key="FontColor" Color="#e5e1e6"/>
+    
+    
+    
+    
+    
+    
+    <SolidColorBrush x:Key="FontColor" Color="#e6e6e6"/>
     <SolidColorBrush x:Key="FontColor_Info" Color="#aeaaaf"/>
+    
+    
+    
     
     <SolidColorBrush x:Key="FontColor_Display_Inverted" Color="#0b060c"/>
     
     <SolidColorBrush x:Key="Background" Color="#202020"/>
+
+    <SolidColorBrush x:Key="TESTd" Color="#4cc2ff"/>
+
+
+
+
+
+    <Color x:Key="TESTfff">#4cc2ff</Color>
+
+
+
+
+
+
+
+    <SolidColorBrush x:Key="AccentColor" Color="#4cc2ff"/>
+    <SolidColorBrush x:Key="AccentColorBorder" Color="#5ac7ff"/>
+
+
 
     <!--#region TextBox -->
     <Style x:Key="TextBox_FocusVisual">
@@ -80,11 +107,13 @@
         </Setter>
     </Style>
 
+    
+
     <!--#region PrimaryButton -->
     <Style x:Key="Button_Primary" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource Button_FocusVisual}"/>
-        <Setter Property="Background" Value="#4cc2ff"/>
-        <Setter Property="BorderBrush" Value="#5ac7ff"/>
+        <Setter Property="Background" Value="{DynamicResource AccentColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBorder}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -100,66 +129,6 @@
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <!--#region MouseOver -->
-                        <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#47b1e8" 
-                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                    <ColorAnimation To="#55b7ea" 
-                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="Mouse.MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#4cc2ff" 
-                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                    <ColorAnimation To="#5ac7ff" 
-                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <!--#endregion-->
-                        <!--#region MouseDown -->
-                        <EventTrigger RoutedEvent="Mouse.PreviewMouseDown">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#42a1d2" 
-                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                    <ColorAnimation To="#42a1d2" 
-                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="Mouse.PreviewMouseUp">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#47b1e8" 
-                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                    <ColorAnimation To="#55b7ea" 
-                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <!--#endregion-->
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" Value="#303030"/>
                             <Setter Property="BorderBrush" Value="#303030"/>
@@ -181,7 +150,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
-        <Setter Property="Foreground" Value="{StaticResource FontColor_Display}"/>
+        <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>

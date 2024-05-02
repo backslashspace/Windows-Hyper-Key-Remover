@@ -12,7 +12,7 @@
             Text="Install Windows Hyper Key Remover"
             Height="28" Width="330"
             VerticalAlignment="Top" HorizontalAlignment="Left"
-            Foreground="{DynamicResource FontColor_Display}"
+            Foreground="{DynamicResource FontColor}"
             FontFamily="{StaticResource Inter Display}"
             Margin="24,20,0,0"
             FontSize="20"/>
@@ -66,7 +66,7 @@
             </Grid>
         </Border>
 
-        <Button Style="{StaticResource Button_Primary}"
+        <Button x:Name="NextButton" Style="{StaticResource Button_Primary}"
             Margin="0,0,24,24"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"

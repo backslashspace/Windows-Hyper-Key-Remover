@@ -7,8 +7,6 @@ namespace Installer
 {
     internal static class Program
     {
-        internal static String AssemblyPath;
-
         internal static Version AssemblyVersion;
         internal static Version AssemblyFileVersion;
         internal static String AssemblyInformationalVersion;

@@ -93,8 +93,10 @@
     </Compile>
     <Compile Include="MessageBoxWindow\Icons\IconEnum.cs" />
     <Compile Include="config.cs" />
+    <Compile Include="Reactive-UI\ButtonAnimator.cs" />
     <Compile Include="Reactive-UI\CheckBoxAnimator.cs" />
     <Compile Include="Reactive-UI\ThemeAwareness.cs" />
+    <Compile Include="Reactive-UI\UpdateButtonColors.cs" />
     <Compile Include="WinAPI\WMI-Registry-Events.cs" />
     <Page Include="Dictionary.xaml">
       <SubType>Designer</SubType>

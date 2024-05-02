@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Management;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Installer
 {
-    internal static class ThemeAwareness
+    internal static partial class ThemeAwareness
     {
         internal static Boolean Initialized = false;
 
@@ -19,8 +20,7 @@ namespace Installer
 
         internal static Boolean AppsUseLightTheme { get; private set; } = true;
 
-        internal static Byte[] RawPalette { get; private set; }
-
+        internal static Byte[] RawAccentColor { get; private set; } = new Byte[3];
 
         // # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -36,6 +36,19 @@ namespace Installer
             AppThemeChanged(null, null);
 
             new RegistryEvents_CurrentUser(@"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", "AppsUseLightTheme", AppThemeChanged);
+        }
+
+        private static void InitializeAccentColorHandler()
+        {
+            // only supported in windows 10 and newer
+            if (DWMAPI.GetWindowsBuildNumber() <= 9600)
+            {
+                return;
+            }
+
+            AccentColorChanged(null, null);
+
+            new RegistryEvents_CurrentUser(@"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Accent", "AccentPalette", AccentColorChanged);
         }
 
         #region Dark/LightMode
@@ -86,12 +99,33 @@ namespace Installer
 
         private static void ApplyLightTheme()
         {
+            return;
 
+            UI.Dispatcher.BeginInvoke(() =>
+            {
+                SolidColorBrush cc = new(Color.FromRgb(243, 243, 243));
+                UI.MainWindow.Resources["Background"] = cc;
+
+                cc = new(Color.FromRgb(22, 22, 22));
+                UI.MainWindow.Resources["FontColor"] = cc;
+            });
         }
 
         private static void ApplyDarkTheme()
         {
+            return;
 
+
+            UI.Dispatcher.BeginInvoke(() =>
+            {
+                SolidColorBrush cc = new(Color.FromRgb(32, 32, 32));
+
+                UI.MainWindow.Resources["Background"] = cc;
+
+                cc = new(Color.FromRgb(230, 230, 230));
+
+                UI.MainWindow.Resources["FontColor"] = cc;
+            });
         }
 
         //
@@ -131,16 +165,58 @@ namespace Installer
         }
         #endregion
 
-
-
-
-
-
-
-
-        private static void InitializeAccentColorHandler()
+        #region AccentColor
+        private static void AccentColorChanged(object sender, EventArrivedEventArgs e)
         {
+            try
+            {
+                Object rawAccentPalette = Microsoft.Win32.Registry.GetValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Accent", "AccentPalette", null);
 
+                if (rawAccentPalette is Byte[] newAccentPalette && newAccentPalette.Length == 32)
+                {
+                    for (Byte b = 0; b < 3; ++b)
+                    {
+                        if (RawAccentColor[b] != newAccentPalette[b + 4])
+                        {
+                            Buffer.BlockCopy(newAccentPalette, 4, RawAccentColor, 0, 3);
+
+                            ApplyAccentColor();
+
+                            return;
+                        }
+                    }
+                }
+            }
+            catch { }
         }
+
+        private static void ApplyAccentColor()
+        {
+            
+
+   
+
+
+            UI.Dispatcher.Invoke(() =>
+            {
+                UpdateButtonColors();
+
+                UI.MainWindow.Resources["AccentColor"] = new SolidColorBrush(Color.FromRgb(RawAccentColor[0], RawAccentColor[1], RawAccentColor[2]));
+
+
+                Int16[] border_Idle = [(Int16)Math.Round(RawAccentColor[0] * 1.05, MidpointRounding.AwayFromZero),
+                                   (Int16)Math.Round(RawAccentColor[1] * 1.05, MidpointRounding.AwayFromZero),
+                                   (Int16)Math.Round(RawAccentColor[2] * 1.05, MidpointRounding.AwayFromZero)];
+
+                ValidateTo8Bit(ref border_Idle);
+
+                UI.MainWindow.Resources["AccentColorBorder"] = new SolidColorBrush(Color.FromRgb((Byte)border_Idle[0], (Byte)border_Idle[1], (Byte)border_Idle[2]));
+
+
+
+
+            });
+        }
+        #endregion
     }
 }

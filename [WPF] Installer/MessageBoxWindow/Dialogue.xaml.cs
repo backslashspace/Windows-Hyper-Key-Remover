@@ -145,7 +145,7 @@ namespace MessageBoxWindow
         {
             try
             {
-                Installer.DWMAPI.SetTheme(new System.Windows.Interop.WindowInteropHelper(this).Handle, !(Boolean)Installer.ThemeAwareness.AppsUseLightTheme);
+                Installer.DWMAPI.SetTheme(new System.Windows.Interop.WindowInteropHelper(this).Handle, !Installer.ThemeAwareness.AppsUseLightTheme);
             }
             catch { }
         }
