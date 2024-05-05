@@ -136,10 +136,10 @@ namespace Installer
             MouseEnter_Storyboard.Begin();
         }
 
-        internal static void SetColor_MouseEnter(ref readonly Int16[] background, ref readonly Int16[] border)
+        internal static void SetColor_MouseEnter(Byte[] background, Byte[] border)
         {
-            MouseEnter_BackgroundColorAnimation.To = Color.FromRgb((Byte)background[0], (Byte)background[1], (Byte)background[2]);
-            MouseEnter_BorderBrushColorAnimation.To = Color.FromRgb((Byte)border[0], (Byte)border[1], (Byte)border[2]);
+            MouseEnter_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
+            MouseEnter_BorderBrushColorAnimation.To = Color.FromRgb(border[0], border[1], border[2]);
         }
         #endregion
 
@@ -159,10 +159,10 @@ namespace Installer
             MouseLeave_Storyboard.Begin();
         }
 
-        internal static void SetColor_MouseLeave(ref readonly Int16[] background, ref readonly Int16[] border)
+        internal static void SetColor_MouseLeave(Byte[] background, Byte[] border)
         {
-            MouseLeave_BackgroundColorAnimation.To = Color.FromRgb((Byte)background[0], (Byte)background[1], (Byte)background[2]);
-            MouseLeave_BorderBrushColorAnimation.To = Color.FromRgb((Byte)border[0], (Byte)border[1], (Byte)border[2]);
+            MouseLeave_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
+            MouseLeave_BorderBrushColorAnimation.To = Color.FromRgb(border[0], border[1], border[2]);
         }
         #endregion
 
@@ -182,10 +182,10 @@ namespace Installer
             MouseDown_Storyboard.Begin();
         }
 
-        internal static void SetColor_MouseDown(ref readonly Int16[] background)
+        internal static void SetColor_MouseDown(Byte[] background)
         {
-            MouseDown_BackgroundColorAnimation.To = Color.FromRgb((Byte)background[0], (Byte)background[1], (Byte)background[2]);
-            MouseDown_BorderBrushColorAnimation.To = Color.FromRgb((Byte)background[0], (Byte)background[1], (Byte)background[2]);
+            MouseDown_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
+            MouseDown_BorderBrushColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
         }
         #endregion
 
@@ -205,10 +205,10 @@ namespace Installer
             MouseUp_Storyboard.Begin();
         }
 
-        internal static void SetColor_MouseUp(ref readonly Int16[] background, ref readonly Int16[] border)
+        internal static void SetColor_MouseUp(Byte[] background, Byte[] border)
         {
-            MouseUp_BackgroundColorAnimation.To = Color.FromRgb((Byte)background[0], (Byte)background[1], (Byte)background[2]);
-            MouseUp_BorderBrushColorAnimation.To = Color.FromRgb((Byte)border[0], (Byte)border[1], (Byte)border[2]);
+            MouseUp_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
+            MouseUp_BorderBrushColorAnimation.To = Color.FromRgb(border[0], border[1], border[2]);
         }
         #endregion
     }

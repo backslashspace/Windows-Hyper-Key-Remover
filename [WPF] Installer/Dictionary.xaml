@@ -13,13 +13,20 @@
     <FontFamily x:Key="Cascadia Mono">pack://application:,,,/resources/Fonts/#Cascadia Mono</FontFamily>
     <!--#endregion-->
 
-    
-    
-    
-    
-    
-    
+    <SolidColorBrush x:Key="AccentColor" Color="#4cc2ff"/>
+    <SolidColorBrush x:Key="AccentColorBorder" Color="#5ac7ff"/>
+
+
+
+
+
     <SolidColorBrush x:Key="FontColor" Color="#e6e6e6"/>
+    <SolidColorBrush x:Key="FontColor_Inverted" Color="#161616"/>
+    
+    
+    
+    
+    
     <SolidColorBrush x:Key="FontColor_Info" Color="#aeaaaf"/>
     
     
@@ -43,8 +50,7 @@
 
 
 
-    <SolidColorBrush x:Key="AccentColor" Color="#4cc2ff"/>
-    <SolidColorBrush x:Key="AccentColorBorder" Color="#5ac7ff"/>
+    
 
 
 
@@ -118,7 +124,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontFamily" Value="{StaticResource Inter Medium}"/>
-        <Setter Property="Foreground" Value="{StaticResource FontColor_Display_Inverted}"/>
+        <Setter Property="Foreground" Value="{DynamicResource FontColor_Inverted}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -150,7 +156,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
-        <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>

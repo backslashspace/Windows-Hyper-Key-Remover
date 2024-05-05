@@ -93,10 +93,11 @@
     </Compile>
     <Compile Include="MessageBoxWindow\Icons\IconEnum.cs" />
     <Compile Include="config.cs" />
-    <Compile Include="Reactive-UI\ButtonAnimator.cs" />
-    <Compile Include="Reactive-UI\CheckBoxAnimator.cs" />
-    <Compile Include="Reactive-UI\ThemeAwareness.cs" />
-    <Compile Include="Reactive-UI\UpdateButtonColors.cs" />
+    <Compile Include="Reactive-UI\3. ApplyAccentColor.cs" />
+    <Compile Include="Reactive-UI\Animators\ButtonAnimator.cs" />
+    <Compile Include="Reactive-UI\Animators\CheckBoxAnimator.cs" />
+    <Compile Include="Reactive-UI\1. ThemeAwareness.cs" />
+    <Compile Include="Reactive-UI\2. CalculateSubColors.cs" />
     <Compile Include="WinAPI\WMI-Registry-Events.cs" />
     <Page Include="Dictionary.xaml">
       <SubType>Designer</SubType>
