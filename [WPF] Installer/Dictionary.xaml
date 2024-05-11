@@ -113,8 +113,6 @@
         </Setter>
     </Style>
 
-    
-
     <!--#region PrimaryButton -->
     <Style x:Key="Button_Primary" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource Button_FocusVisual}"/>
@@ -147,11 +145,14 @@
     </Style>
     <!--#endregion-->
 
+    <SolidColorBrush x:Key="Button_Secondary_Background" Color="#2d2d2d"/>
+    <SolidColorBrush x:Key="Button_Secondary_BorderBrush" Color="#353535"/>
+
     <!--#region SecondaryButton -->
     <Style x:Key="Button_Secondary" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource Button_FocusVisual}"/>
-        <Setter Property="Background" Value="#2d2d2d"/>
-        <Setter Property="BorderBrush" Value="#353535"/>
+        <Setter Property="Background" Value="{DynamicResource Button_Secondary_Background}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Button_Secondary_BorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -167,62 +168,6 @@
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <!--#region MouseOver -->
-                        <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#323232" 
-                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="Mouse.MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#2d2d2d" 
-                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                    <ColorAnimation To="#353535" 
-                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <!--#endregion-->
-                        <!--#region MouseDown -->
-                        <EventTrigger RoutedEvent="Mouse.PreviewMouseDown">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#272727" 
-                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                    <ColorAnimation To="#303030" 
-                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="Mouse.PreviewMouseUp">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#323232" 
-                                        Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                    <ColorAnimation To="#353535" 
-                                        Storyboard.TargetProperty="(Control.BorderBrush).(SolidColorBrush.Color)" 
-                                        FillBehavior="HoldEnd"
-                                        Duration="0:0:0.075"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <!--#endregion-->
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" Value="#262626"/>
                             <Setter Property="BorderBrush" Value="#262626"/>

@@ -22,8 +22,6 @@ namespace Installer
                 App app = new();
                 app.InitializeComponent();
                 app.Run();
-
-                Console.WriteLine("dd");
             }
             catch (Exception ex)
             {

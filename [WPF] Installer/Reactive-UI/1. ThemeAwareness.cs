@@ -25,7 +25,7 @@ namespace Installer
             internal static readonly SolidColorBrush LightMode_BackgroundColor = new(Color.FromRgb(243, 243, 243));
             internal static readonly SolidColorBrush DarkMode_BackgroundColor = new(Color.FromRgb(32, 32, 32));
 
-            // controls
+            #region Controls Accent Colors
             internal static Byte[] LightMode_BorderBrush_Idle { get; private set; } = new Byte[3];
             internal static Byte[] LightMode_Background_MouseOver { get; private set; } = new Byte[3];
             internal static Byte[] LightMode_BorderBrush_MouseOver { get; private set; } = new Byte[3];
@@ -34,13 +34,16 @@ namespace Installer
             internal static Byte[] DarkMode_BorderBrush_Idle { get; private set; } = new Byte[3];
             internal static Byte[] DarkMode_Background_MouseOver { get; private set; } = new Byte[3];
             internal static Byte[] DarkMode_BorderBrush_MouseOver { get; private set; } = new Byte[3];
-            internal static Byte[] DarkMode_MouseDown { get; private set; } = new Byte[3];
+            internal static Byte[] DarkMode_MouseDown { get; private set; } = new Byte[3]; 
+            #endregion
         }
 
         // # # # # # # # # # # # # # # # # # # # # # # #
 
         internal static void Initialize()
         {
+            if (Initialized) return;
+
             InitializeAccentColorHandler();
 
             InitializeThemeHandler();
@@ -51,6 +54,20 @@ namespace Installer
         // # # # # # # # # # # # # # # # # # # # # # # #
 
         #region InitializeEventHandler
+        private static void InitializeAccentColorHandler()
+        {
+            // only supported in windows 10 and newer
+            if (DWMAPI.GetWindowsBuildNumber() <= 9600)
+            {
+                return;
+            }
+
+            // get first time
+            AccentColorChanged(null, null);
+
+            new RegistryEvents_CurrentUser(@"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Accent", "AccentPalette", AccentColorChanged);
+        }
+
         private static void InitializeThemeHandler()
         {
             if (DWMAPI.DarkModeCompatibilityLevel == DWMAPI.DWM_Dark_Mode_Compatibility_Level.NONE)
@@ -65,67 +82,9 @@ namespace Installer
 
             new RegistryEvents_CurrentUser(@"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", "AppsUseLightTheme", AppThemeChanged);
         }
-
-        private static void InitializeAccentColorHandler()
-        {
-            // only supported in windows 10 and newer
-            if (DWMAPI.GetWindowsBuildNumber() <= 9600)
-            {
-                return;
-            }
-
-            // get first time
-            AccentColorChanged(null, null);
-
-            new RegistryEvents_CurrentUser(@"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Accent", "AccentPalette", AccentColorChanged);
-        } 
         #endregion
 
         #region RegistryEventHandler
-        private static void AppThemeChanged(object sender, EventArrivedEventArgs e)
-        {
-            Boolean newThemeStateIsLightMode;
-
-            try
-            {
-                Object rawAppsUseLightTheme = Microsoft.Win32.Registry.GetValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", "AppsUseLightTheme", null);
-
-                if (rawAppsUseLightTheme is Int32 i && i == 0)
-                {
-                    newThemeStateIsLightMode = false;
-                }
-                else
-                {
-                    newThemeStateIsLightMode = true;
-                }
-            }
-            catch
-            {
-                newThemeStateIsLightMode = true;
-            }
-
-            if (newThemeStateIsLightMode == AppsUseLightTheme) return;
-
-            AppsUseLightTheme = newThemeStateIsLightMode;
-
-            DWMAPI.SetTheme(UI.MainWindowHandle, !newThemeStateIsLightMode);
-            if (DWMAPI.GetWindowsBuildNumber() < 22000)
-            {
-                UpdateWindow();
-            }
-
-            if (newThemeStateIsLightMode)
-            {
-                ApplyLightTheme();
-            }
-            else
-            {
-                ApplyDarkTheme();
-            }
-
-            ApplyAccentColor();
-        }
-
         private static void AccentColorChanged(object sender, EventArrivedEventArgs e)
         {
             try
@@ -169,6 +128,50 @@ namespace Installer
             }
             catch { }
         }
+
+        private static void AppThemeChanged(object sender, EventArrivedEventArgs e)
+        {
+            Boolean newThemeStateIsLightMode;
+
+            try
+            {
+                Object rawAppsUseLightTheme = Microsoft.Win32.Registry.GetValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", "AppsUseLightTheme", null);
+
+                if (rawAppsUseLightTheme is Int32 i && i == 0)
+                {
+                    newThemeStateIsLightMode = false;
+                }
+                else
+                {
+                    newThemeStateIsLightMode = true;
+                }
+            }
+            catch
+            {
+                newThemeStateIsLightMode = true;
+            }
+
+            if (newThemeStateIsLightMode == AppsUseLightTheme && Initialized) return;
+
+            AppsUseLightTheme = newThemeStateIsLightMode;
+
+            DWMAPI.SetTheme(UI.MainWindowHandle, !newThemeStateIsLightMode);
+            if (DWMAPI.GetWindowsBuildNumber() < 22000)
+            {
+                UpdateWindow();
+            }
+
+            if (newThemeStateIsLightMode)
+            {
+                ApplyLightTheme();
+            }
+            else
+            {
+                ApplyDarkTheme();
+            }
+
+            UI.Dispatcher.Invoke(() => ApplyAccentColor());
+        }
         #endregion
 
         //
@@ -177,6 +180,8 @@ namespace Installer
         {
             UI.Dispatcher.BeginInvoke(() =>
             {
+                ButtonAnimator.SecondaryButton.SetLightMode();
+
                 UI.MainWindow.Resources["Background"] = ThemeData.LightMode_BackgroundColor;
 
                 UI.MainWindow.Resources["FontColor"] = ThemeData.LightMode_FontColor;
@@ -190,6 +195,8 @@ namespace Installer
         {
             UI.Dispatcher.BeginInvoke(() =>
             {
+                ButtonAnimator.SecondaryButton.SetDarkMode();
+     
                 UI.MainWindow.Resources["Background"] = ThemeData.DarkMode_BackgroundColor;
 
                 UI.MainWindow.Resources["FontColor"] = ThemeData.DarkMode_FontColor;

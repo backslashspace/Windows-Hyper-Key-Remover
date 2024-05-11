@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using static Installer.ThemeAwareness.ThemeData;
 
 namespace Installer
 {
@@ -20,8 +21,10 @@ namespace Installer
 
         private void ApplyButtonAnimator()
         {
-            ButtonAnimator.HookChild(ref IntroView.NextButton);
-            ButtonAnimator.HookChild(ref SelectView.NextButton);
+            ButtonAnimator.PrimaryButton.HookChild(ref IntroView.NextButton);
+            ButtonAnimator.PrimaryButton.HookChild(ref SelectView.NextButton);
+
+            ButtonAnimator.SecondaryButton.HookChild(ref IntroView.CancelButton);
         }
 
         private void InitializeApplicationThemeAwareness(object sender, RoutedEventArgs e)

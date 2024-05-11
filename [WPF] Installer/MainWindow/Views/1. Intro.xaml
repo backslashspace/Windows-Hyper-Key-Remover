@@ -74,7 +74,7 @@
             Width="172"
             Content="Next" Click="Next_Button"/>
 
-        <Button Style="{StaticResource Button_Secondary}"
+        <Button x:Name="CancelButton" Style="{StaticResource Button_Secondary}"
             Margin="0,0,207,24"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
