@@ -35,10 +35,10 @@ namespace Installer
             border_MouseOver[2] = (Byte)(AccentPalette.DarkMode_AccentColor[2] + (Int32)(((AccentPalette.DarkMode_AccentColor[2] - 131.2) * -0.1724137931034483) + MAGIC_NUMBER - MAGIC_NUMBER));
             #endregion
 
-            SetNewColors(ThemeData.DarkMode_BorderBrush_Idle, ref border_Idle);
-            SetNewColors(ThemeData.DarkMode_Background_MouseOver, ref background_MouseOver);
-            SetNewColors(ThemeData.DarkMode_BorderBrush_MouseOver, ref border_MouseOver);
-            SetNewColors(ThemeData.DarkMode_MouseDown, ref mouseDown);
+            SetNewColors(ThemeData.ControlColors.DarkMode_BorderBrush_Idle, ref border_Idle);
+            SetNewColors(ThemeData.ControlColors.DarkMode_Background_MouseOver, ref background_MouseOver);
+            SetNewColors(ThemeData.ControlColors.DarkMode_BorderBrush_MouseOver, ref border_MouseOver);
+            SetNewColors(ThemeData.ControlColors.DarkMode_MouseDown, ref mouseDown);
 
             #region LightTheme
             // (-10)x = y - 245
@@ -61,10 +61,10 @@ namespace Installer
             border_MouseOver[1] = (Byte)(AccentPalette.LightMode_AccentColor[1] + (Int32)(((AccentPalette.LightMode_AccentColor[1] - 248) * -0.1718213058419244) + MAGIC_NUMBER - MAGIC_NUMBER));
             border_MouseOver[2] = (Byte)(AccentPalette.LightMode_AccentColor[2] + (Int32)(((AccentPalette.LightMode_AccentColor[2] - 248) * -0.1718213058419244) + MAGIC_NUMBER - MAGIC_NUMBER));
 
-            SetNewColors(ThemeData.LightMode_BorderBrush_Idle, ref border_Idle);
-            SetNewColors(ThemeData.LightMode_Background_MouseOver, ref background_MouseOver);
-            SetNewColors(ThemeData.LightMode_BorderBrush_MouseOver, ref border_MouseOver);
-            SetNewColors(ThemeData.LightMode_MouseDown, ref mouseDown);
+            SetNewColors(ThemeData.ControlColors.LightMode_BorderBrush_Idle, ref border_Idle);
+            SetNewColors(ThemeData.ControlColors.LightMode_Background_MouseOver, ref background_MouseOver);
+            SetNewColors(ThemeData.ControlColors.LightMode_BorderBrush_MouseOver, ref border_MouseOver);
+            SetNewColors(ThemeData.ControlColors.LightMode_MouseDown, ref mouseDown);
             #endregion
         }
 

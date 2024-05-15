@@ -4,6 +4,8 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media;
 using System.Windows;
+using System.Collections.Generic;
+using static Installer.ThemeAwareness;
 
 namespace Installer
 {
@@ -12,6 +14,8 @@ namespace Installer
         private const Double Duration = 0.05;
 
         internal static Boolean Initialized { get; private set; } = false;
+
+        internal static readonly List<CheckBox> HookedCheckBoxes = []; // ref list
 
         internal static void Initialize()
         {
@@ -100,14 +104,19 @@ namespace Installer
             checkBox.PreviewMouseDown += CheckBox_MouseDown;
             checkBox.Checked += CheckBox_CheckStateChanged;
             checkBox.Unchecked += CheckBox_CheckStateChanged;
+
+            checkBox.IsEnabledChanged += CheckBox_IsEnabledChanged;
+
+            HookedCheckBoxes.Add(checkBox);
         }
 
         #region EventHandler
         private static void CheckBox_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (sender == null) { return; }
+            if (sender == null) return;
             CheckBox checkBox = sender as CheckBox;
-            if (checkBox.IsChecked == null) { return; }
+            if (checkBox.IsChecked == null) return;
+            if (!checkBox.IsEnabled) return;
 
             if ((Boolean)checkBox.IsChecked)
             {
@@ -121,9 +130,10 @@ namespace Installer
 
         private static void CheckBox_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (sender == null) { return; }
+            if (sender == null) return;
             CheckBox checkBox = sender as CheckBox;
-            if (checkBox.IsChecked == null) { return; }
+            if (checkBox.IsChecked == null) return;
+            if (!checkBox.IsEnabled) return;
 
             if ((Boolean)checkBox.IsChecked)
             {
@@ -137,9 +147,9 @@ namespace Installer
 
         private static void CheckBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (sender == null) { return; }
+            if (sender == null) return;
             CheckBox checkBox = sender as CheckBox;
-            if (checkBox.IsChecked == null) { return; }
+            if (checkBox.IsChecked == null) return;
 
             if ((Boolean)checkBox.IsChecked)
             {
@@ -153,9 +163,9 @@ namespace Installer
 
         private static void CheckBox_CheckStateChanged(object sender, RoutedEventArgs e)
         {
-            if (sender == null) { return; }
+            if (sender == null) return;
             CheckBox checkBox = sender as CheckBox;
-            if (checkBox.IsChecked == null) { return; }
+            if (checkBox.IsChecked == null) return;
 
             if ((Boolean)checkBox.IsChecked)
             {
@@ -164,6 +174,70 @@ namespace Installer
             else
             {
                 MouseUp_Unchecked_Begin(ref checkBox);
+            }
+        }
+
+        private static void CheckBox_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (sender == null) return;
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox.IsChecked == null) return;
+
+            if (checkBox.IsEnabled)
+            {
+                if ((Boolean)checkBox.IsChecked)
+                {
+                    if (ThemeAwareness.AppsUseLightTheme)
+                    {
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(AccentPalette.LightMode_AccentColor[0], AccentPalette.LightMode_AccentColor[1], AccentPalette.LightMode_AccentColor[2]));
+                    }
+                    else
+                    {
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(AccentPalette.DarkMode_AccentColor[0], AccentPalette.DarkMode_AccentColor[1], AccentPalette.DarkMode_AccentColor[2]));
+                    }
+                }
+                else
+                {
+                    if (ThemeAwareness.AppsUseLightTheme)
+                    {
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(249, 249, 249));
+                        checkBox.BorderBrush = new SolidColorBrush(Color.FromRgb(139, 139, 139));
+                    }
+                    else
+                    {
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(39, 39, 39));
+                        checkBox.BorderBrush = new SolidColorBrush(Color.FromRgb(158, 158, 158));
+                    }
+                }
+            }
+            else
+            {
+                if ((Boolean)checkBox.IsChecked)
+                {
+                    if (ThemeAwareness.AppsUseLightTheme)
+                    {
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(197, 197, 197));
+                        checkBox.BorderBrush = new SolidColorBrush(Color.FromRgb(176, 176, 176));
+                    }
+                    else
+                    {
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(76, 76, 76));
+                        checkBox.BorderBrush = new SolidColorBrush(Color.FromRgb(91, 91, 91));
+                    }
+                }
+                else
+                {
+                    if (ThemeAwareness.AppsUseLightTheme)
+                    {
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(251, 251, 251));
+                        checkBox.BorderBrush = new SolidColorBrush(Color.FromRgb(197, 197, 197));
+                    }
+                    else
+                    {
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(43, 43, 43));
+                        checkBox.BorderBrush = new SolidColorBrush(Color.FromRgb(76, 76, 76));
+                    }
+                }
             }
         }
         #endregion
@@ -199,14 +273,14 @@ namespace Installer
             MouseEnter_Checked_Storyboard.Begin();
         }
 
-        internal static void MouseEnter_Unchecked_UpdateScheme(ref readonly Byte Back_R, ref readonly Byte Back_G, ref readonly Byte Back_B, ref readonly Byte Border_R, ref readonly Byte Border_G, ref readonly Byte Border_B)
+        internal static void SetColor_MouseEnter_Unchecked(Byte[] background, Byte[] borderBrush)
         {
-            MouseEnter_Unchecked_BackgroundColorAnimation.To = Color.FromRgb(Back_R, Back_G, Back_B);
-            MouseEnter_Unchecked_BorderBrushColorAnimation.To = Color.FromRgb(Border_R, Border_G, Border_B);
+            MouseEnter_Unchecked_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
+            MouseEnter_Unchecked_BorderBrushColorAnimation.To = Color.FromRgb(borderBrush[0], borderBrush[1], borderBrush[2]);
         }
-        internal static void MouseEnter_Checked_UpdateScheme(ref readonly Byte Back_R, ref readonly Byte Back_G, ref readonly Byte Back_B)
+        internal static void SetColor_MouseEnter_Checked(Byte[] background)
         {
-            MouseEnter_Checked_BackgroundColorAnimation.To = Color.FromRgb(Back_R, Back_G, Back_B);
+            MouseEnter_Checked_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
         }
         #endregion
 
@@ -237,14 +311,14 @@ namespace Installer
             MouseLeave_Checked_Storyboard.Begin();
         }
 
-        internal static void MouseLeave_Unchecked_UpdateScheme(ref readonly Byte Back_R, ref readonly Byte Back_G, ref readonly Byte Back_B, ref readonly Byte Border_R, ref readonly Byte Border_G, ref readonly Byte Border_B)
+        internal static void SetColor_MouseLeave_Unchecked(Byte[] background, Byte[] borderBrush)
         {
-            MouseLeave_Unchecked_BackgroundColorAnimation.To = Color.FromRgb(Back_R, Back_G, Back_B);
-            MouseLeave_Unchecked_BorderBrushColorAnimation.To = Color.FromRgb(Border_R, Border_G, Border_B);
+            MouseLeave_Unchecked_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
+            MouseLeave_Unchecked_BorderBrushColorAnimation.To = Color.FromRgb(borderBrush[0], borderBrush[1], borderBrush[2]);
         }
-        internal static void MouseLeave_Checked_UpdateScheme(ref readonly Byte Back_R, ref readonly Byte Back_G, ref readonly Byte Back_B)
+        internal static void SetColor_MouseLeave_Checked(Byte[] background)
         {
-            MouseLeave_Checked_BackgroundColorAnimation.To = Color.FromRgb(Back_R, Back_G, Back_B);
+            MouseLeave_Checked_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
         }
         #endregion
 
@@ -275,14 +349,14 @@ namespace Installer
             MouseDown_Checked_Storyboard.Begin();
         }
 
-        internal static void MouseDown_Unchecked_UpdateScheme(ref readonly Byte Back_R, ref readonly Byte Back_G, ref readonly Byte Back_B, ref readonly Byte Border_R, ref readonly Byte Border_G, ref readonly Byte Border_B)
+        internal static void SetColor_MouseDown_Unchecked(Byte[] background, Byte[] borderBrush)
         {
-            MouseDown_Unchecked_BackgroundColorAnimation.To = Color.FromRgb(Back_R, Back_G, Back_B);
-            MouseDown_Unchecked_BorderBrushColorAnimation.To = Color.FromRgb(Border_R, Border_G, Border_B);
+            MouseDown_Unchecked_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
+            MouseDown_Unchecked_BorderBrushColorAnimation.To = Color.FromRgb(borderBrush[0], borderBrush[1], borderBrush[2]);
         }
-        internal static void MouseDown_Checked_UpdateScheme(ref readonly Byte Back_R, ref readonly Byte Back_G, ref readonly Byte Back_B)
+        internal static void SetColor_MouseDown_Checked( Byte[] background)
         {
-            MouseDown_Checked_BackgroundColorAnimation.To = Color.FromRgb(Back_R, Back_G, Back_B);
+            MouseDown_Checked_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
         }
         #endregion
 
@@ -321,14 +395,14 @@ namespace Installer
             MouseUp_Checked_Storyboard.Begin();
         }
 
-        internal static void MouseUp_Unchecked_UpdateScheme(ref readonly Byte Back_R, ref readonly Byte Back_G, ref readonly Byte Back_B, ref readonly Byte Border_R, ref readonly Byte Border_G, ref readonly Byte Border_B)
+        internal static void SetColor_MouseUp_Unchecked(Byte[] background, Byte[] borderBrush)
         {
-            MouseUp_Unchecked_BackgroundColorAnimation.To = Color.FromRgb(Back_R, Back_G, Back_B);
-            MouseUp_Unchecked_BorderBrushColorAnimation.To = Color.FromRgb(Border_R, Border_G, Border_B);
+            MouseUp_Unchecked_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
+            MouseUp_Unchecked_BorderBrushColorAnimation.To = Color.FromRgb(borderBrush[0], borderBrush[1], borderBrush[2]);
         }
-        internal static void MouseUp_Checked_UpdateScheme(ref readonly Byte Back_R, ref readonly Byte Back_G, ref readonly Byte Back_B)
+        internal static void SetColor_MouseUp_Checked(Byte[] background)
         {
-            MouseUp_Checked_BackgroundColorAnimation.To = Color.FromRgb(Back_R, Back_G, Back_B);
+            MouseUp_Checked_BackgroundColorAnimation.To = Color.FromRgb(background[0], background[1], background[2]);
         }
         #endregion
     }

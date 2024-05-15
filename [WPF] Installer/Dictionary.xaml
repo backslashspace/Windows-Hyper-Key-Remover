@@ -192,6 +192,8 @@
         </Setter>
     </Style>
 
+    <SolidColorBrush x:Key="CheckMarkColor" Color="#ababab"/>
+
     <Style x:Key="CheckBox" TargetType="{x:Type CheckBox}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource CheckBox_FocusVisual}"/>
         <Setter Property="Background" Value="#272727"/>
@@ -207,9 +209,10 @@
                             <ColumnDefinition Width="20px"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Border x:Name="checkBoxBorder" Width="20" Height="20" CornerRadius="4" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Path x:Name="optionMark" Data="M 12 -4 L 4 4 L 0 0 L 1 -1 L 4 2 L 11 -5 L 12 -4" Fill="Black" Margin="4" Opacity="0" Stretch="Uniform"/>
+                        <Border CornerRadius="4" BorderThickness="0" Width="20" Height="20"  Background="{TemplateBinding Background}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path x:Name="optionMark" Data="M 12 -4 L 4 4 L 0 0 L 1 -1 L 4 2 L 11 -5 L 12 -4" Fill="{DynamicResource FontColor_Inverted}" Width="12" Height="12" Opacity="1" Stretch="Uniform"/>
                         </Border>
+                        <Border x:Name="checkBoxBorder" Width="20" Height="20" CornerRadius="3.5" BorderBrush="{TemplateBinding BorderBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="{TemplateBinding BorderThickness}"/>
                         <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="8,-3,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -241,6 +244,13 @@
                             <Setter Property="Foreground"  Value="#747474"/>
                             <Setter Property="Fill" TargetName="optionMark" Value="#101010"/>
                         </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="BorderThickness" TargetName="checkBoxBorder" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="BorderThickness" TargetName="checkBoxBorder" Value="1"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="{DynamicResource CheckMarkColor}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -263,9 +273,10 @@
                             <ColumnDefinition Width="20px"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Border x:Name="checkBoxBorder" Width="20" Height="20" CornerRadius="4" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Path x:Name="optionMark" Data="M 12 -4 L 4 4 L 0 0 L 1 -1 L 4 2 L 11 -5 L 12 -4" Fill="Black" Margin="4" Opacity="1" Stretch="Uniform"/>
+                        <Border CornerRadius="4" BorderThickness="0" Width="20" Height="20"  Background="{TemplateBinding Background}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path x:Name="optionMark" Data="M 12 -4 L 4 4 L 0 0 L 1 -1 L 4 2 L 11 -5 L 12 -4" Fill="{DynamicResource FontColor_Inverted}" Width="12" Height="12" Opacity="1" Stretch="Uniform"/>
                         </Border>
+                        <Border x:Name="checkBoxBorder" Width="20" Height="20" CornerRadius="3.5" BorderBrush="{TemplateBinding BorderBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="{TemplateBinding BorderThickness}"/>
                         <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="8,-3,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -291,11 +302,12 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="BorderThickness" TargetName="checkBoxBorder" Value="1"/>
+                        </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="checkBoxBorder" Value="#685858"/>
-                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#685858"/>
-                            <Setter Property="Foreground"  Value="#747474"/>
-                            <Setter Property="Fill" TargetName="optionMark" Value="#101010"/>
+                            <Setter Property="BorderThickness" TargetName="checkBoxBorder" Value="1"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="{DynamicResource CheckMarkColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

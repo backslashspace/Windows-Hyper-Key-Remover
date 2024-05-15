@@ -10,9 +10,6 @@ namespace Installer.Views
         public Select()
         {
             InitializeComponent();
-
-            CheckBoxAnimator.Initialize();
-            CheckBoxAnimator.HookChild(ref SelfHealingCheckBox);
         }
 
         private void Next_Button(object sender, RoutedEventArgs e)

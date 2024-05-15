@@ -261,6 +261,8 @@ namespace Installer
                 #endregion
             }
 
+            //
+
             internal static void SetLightMode()
             {
                 UI.MainWindow.Resources["Button_Secondary_Background"] = new SolidColorBrush(Color.FromRgb(251, 251, 251));
@@ -312,6 +314,8 @@ namespace Installer
                 MouseUp_FontColorAnimation.To = Color.FromRgb(230, 230, 230);
                 #endregion
             }
+
+            //
 
             internal static void HookChild(ref readonly Button button)
             {

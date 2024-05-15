@@ -42,6 +42,7 @@
 
         <CheckBox x:Name="SelfHealingCheckBox"
             Style="{StaticResource CheckBox_Checked}"
+            IsEnabled="False"
             Foreground="{StaticResource FontColor}"
             Content="Self-Healing"
             FontSize="16"
@@ -69,7 +70,7 @@
             Width="172"
             Content="Next" Click="Next_Button"/>
 
-        <Button Style="{StaticResource Button_Secondary}"
+        <Button x:Name="BackButton" Style="{StaticResource Button_Secondary}"
             Margin="0,0,207,24"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"

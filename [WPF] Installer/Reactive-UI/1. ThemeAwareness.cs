@@ -11,13 +11,13 @@ namespace Installer
 
         internal static Boolean AppsUseLightTheme { get; private set; } = false;
 
-        internal struct AccentPalette
+        internal readonly struct AccentPalette
         {
-            internal static Byte[] LightMode_AccentColor { get; private set; } = new Byte[3];
-            internal static Byte[] DarkMode_AccentColor { get; private set; } = new Byte[3];
+            internal static readonly Byte[] LightMode_AccentColor = new Byte[3];
+            internal static readonly Byte[] DarkMode_AccentColor = new Byte[3];
         }
 
-        internal class ThemeData
+        internal static class ThemeData
         {
             internal static readonly SolidColorBrush LightMode_FontColor = new(Color.FromRgb(22, 22, 22));
             internal static readonly SolidColorBrush DarkMode_FontColor = new(Color.FromRgb(230, 230, 230));
@@ -25,17 +25,18 @@ namespace Installer
             internal static readonly SolidColorBrush LightMode_BackgroundColor = new(Color.FromRgb(243, 243, 243));
             internal static readonly SolidColorBrush DarkMode_BackgroundColor = new(Color.FromRgb(32, 32, 32));
 
-            #region Controls Accent Colors
-            internal static Byte[] LightMode_BorderBrush_Idle { get; private set; } = new Byte[3];
-            internal static Byte[] LightMode_Background_MouseOver { get; private set; } = new Byte[3];
-            internal static Byte[] LightMode_BorderBrush_MouseOver { get; private set; } = new Byte[3];
-            internal static Byte[] LightMode_MouseDown { get; private set; } = new Byte[3];
+            internal static class ControlColors
+            {
+                internal static readonly Byte[] LightMode_BorderBrush_Idle = new Byte[3];
+                internal static readonly Byte[] LightMode_Background_MouseOver = new Byte[3];
+                internal static readonly Byte[] LightMode_BorderBrush_MouseOver = new Byte[3];
+                internal static readonly Byte[] LightMode_MouseDown = new Byte[3];
 
-            internal static Byte[] DarkMode_BorderBrush_Idle { get; private set; } = new Byte[3];
-            internal static Byte[] DarkMode_Background_MouseOver { get; private set; } = new Byte[3];
-            internal static Byte[] DarkMode_BorderBrush_MouseOver { get; private set; } = new Byte[3];
-            internal static Byte[] DarkMode_MouseDown { get; private set; } = new Byte[3]; 
-            #endregion
+                internal static readonly Byte[] DarkMode_BorderBrush_Idle = new Byte[3];
+                internal static readonly Byte[] DarkMode_Background_MouseOver = new Byte[3];
+                internal static readonly Byte[] DarkMode_BorderBrush_MouseOver = new Byte[3];
+                internal static readonly Byte[] DarkMode_MouseDown = new Byte[3];
+            }
         }
 
         // # # # # # # # # # # # # # # # # # # # # # # #
