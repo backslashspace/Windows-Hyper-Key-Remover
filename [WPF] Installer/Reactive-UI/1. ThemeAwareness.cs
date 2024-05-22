@@ -124,7 +124,7 @@ namespace Installer
 
                     CalculateColors();
 
-                    UI.Dispatcher.Invoke(() => ApplyAccentColor());
+                    UI.Dispatcher.BeginInvoke(() => ApplyAccentColor());
                 }
             }
             catch { }
@@ -157,21 +157,25 @@ namespace Installer
             AppsUseLightTheme = newThemeStateIsLightMode;
 
             DWMAPI.SetTheme(UI.MainWindowHandle, !newThemeStateIsLightMode);
-            if (DWMAPI.GetWindowsBuildNumber() < 22000)
-            {
-                UpdateWindow();
-            }
 
-            if (newThemeStateIsLightMode)
+            UI.Dispatcher.BeginInvoke(() =>
             {
-                ApplyLightTheme();
-            }
-            else
-            {
-                ApplyDarkTheme();
-            }
+                if (DWMAPI.GetWindowsBuildNumber() < 22000)
+                {
+                    UpdateWindow();
+                }
 
-            UI.Dispatcher.Invoke(() => ApplyAccentColor());
+                if (newThemeStateIsLightMode)
+                {
+                    ApplyLightTheme();
+                }
+                else
+                {
+                    ApplyDarkTheme();
+                }
+
+                ApplyAccentColor();
+            });
         }
         #endregion
 
@@ -179,66 +183,53 @@ namespace Installer
 
         private static void ApplyLightTheme()
         {
-            UI.Dispatcher.BeginInvoke(() =>
-            {
-                ButtonAnimator.SecondaryButton.SetLightMode();
+            ButtonAnimator.SecondaryButton.SetLightMode();
 
-                UI.MainWindow.Resources["Background"] = ThemeData.LightMode_BackgroundColor;
+            UI.MainWindow.Resources["Background"] = ThemeData.LightMode_BackgroundColor;
 
-                UI.MainWindow.Resources["FontColor"] = ThemeData.LightMode_FontColor;
-                UI.MainWindow.Resources["FontColor_Inverted"] = ThemeData.DarkMode_FontColor;
-
-                ApplyAccentColor();
-            });
+            UI.MainWindow.Resources["FontColor"] = ThemeData.LightMode_FontColor;
+            UI.MainWindow.Resources["FontColor_Inverted"] = ThemeData.DarkMode_FontColor;
         }
 
         private static void ApplyDarkTheme()
         {
-            UI.Dispatcher.BeginInvoke(() =>
-            {
-                ButtonAnimator.SecondaryButton.SetDarkMode();
-     
-                UI.MainWindow.Resources["Background"] = ThemeData.DarkMode_BackgroundColor;
+            ButtonAnimator.SecondaryButton.SetDarkMode();
 
-                UI.MainWindow.Resources["FontColor"] = ThemeData.DarkMode_FontColor;
-                UI.MainWindow.Resources["FontColor_Inverted"] = ThemeData.LightMode_FontColor;
+            UI.MainWindow.Resources["Background"] = ThemeData.DarkMode_BackgroundColor;
 
-                ApplyAccentColor();
-            });
+            UI.MainWindow.Resources["FontColor"] = ThemeData.DarkMode_FontColor;
+            UI.MainWindow.Resources["FontColor_Inverted"] = ThemeData.LightMode_FontColor;
         }
 
         private static void UpdateWindow()
         {
-            UI.Dispatcher.Invoke(new Action(() =>
+            if (UI.MainWindow.WindowStyle != WindowStyle.ToolWindow && UI.MainWindow.WindowStyle != WindowStyle.None)
             {
-                if (UI.MainWindow.WindowStyle != WindowStyle.ToolWindow && UI.MainWindow.WindowStyle != WindowStyle.None)
+                WindowStyle current = UI.MainWindow.WindowStyle;
+
+                UI.MainWindow.WindowStyle = current switch
                 {
-                    WindowStyle current = UI.MainWindow.WindowStyle;
+                    WindowStyle.SingleBorderWindow => WindowStyle.ThreeDBorderWindow,
+                    WindowStyle.ThreeDBorderWindow => WindowStyle.SingleBorderWindow,
+                    WindowStyle.ToolWindow => WindowStyle.SingleBorderWindow,
+                    _ => current,
+                };
 
-                    UI.MainWindow.WindowStyle = current switch
-                    {
-                        WindowStyle.SingleBorderWindow => WindowStyle.ThreeDBorderWindow,
-                        WindowStyle.ThreeDBorderWindow => WindowStyle.SingleBorderWindow,
-                        WindowStyle.ToolWindow => WindowStyle.SingleBorderWindow,
-                        _ => current,
-                    };
+                UI.MainWindow.WindowStyle = current;
+            }
+            else
+            {
+                ResizeMode current = UI.MainWindow.ResizeMode;
 
-                    UI.MainWindow.WindowStyle = current;
-                }
-                else
+                UI.MainWindow.ResizeMode = current switch
                 {
-                    ResizeMode current = UI.MainWindow.ResizeMode;
+                    ResizeMode.CanResize => ResizeMode.CanMinimize,
+                    ResizeMode.NoResize => ResizeMode.CanMinimize,
+                    _ => ResizeMode.CanResize
+                };
 
-                    UI.MainWindow.ResizeMode = current switch
-                    {
-                        ResizeMode.CanResize => ResizeMode.CanMinimize,
-                        ResizeMode.NoResize => ResizeMode.CanMinimize,
-                        _ => ResizeMode.CanResize
-                    };
-
-                    UI.MainWindow.ResizeMode = current;
-                }
-            }));
+                UI.MainWindow.ResizeMode = current;
+            }
         }
     }
 }

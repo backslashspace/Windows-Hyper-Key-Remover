@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Installer
@@ -23,6 +22,8 @@ namespace Installer
                 UI.MainWindow.Resources["AccentColorBorder"] = new SolidColorBrush(Color.FromRgb(ThemeData.ControlColors.DarkMode_BorderBrush_Idle[0], ThemeData.ControlColors.DarkMode_BorderBrush_Idle[1], ThemeData.ControlColors.DarkMode_BorderBrush_Idle[2]));
             }
         }
+
+        //
 
         private static void SetPrimaryButtonColors()
         {

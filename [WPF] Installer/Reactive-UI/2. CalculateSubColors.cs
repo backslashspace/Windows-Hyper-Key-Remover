@@ -25,9 +25,9 @@ namespace Installer
             mouseDown[2] = (Byte)(AccentPalette.DarkMode_AccentColor[2] + (Int32)(((AccentPalette.DarkMode_AccentColor[2] - 27.51) * -0.2) + MAGIC_NUMBER - MAGIC_NUMBER));
 
             // (-12.75)x = y - 255
-            border_Idle[0] = (Byte)(AccentPalette.DarkMode_AccentColor[0] + (Int32)(((AccentPalette.DarkMode_AccentColor[0] - 255) * -0.0784313725490196) + MAGIC_NUMBER - MAGIC_NUMBER));
-            border_Idle[1] = (Byte)(AccentPalette.DarkMode_AccentColor[1] + (Int32)(((AccentPalette.DarkMode_AccentColor[1] - 255) * -0.0784313725490196) + MAGIC_NUMBER - MAGIC_NUMBER));
-            border_Idle[2] = (Byte)(AccentPalette.DarkMode_AccentColor[2] + (Int32)(((AccentPalette.DarkMode_AccentColor[2] - 255) * -0.0784313725490196) + MAGIC_NUMBER - MAGIC_NUMBER));
+            border_Idle[0] = (Byte)(AccentPalette.DarkMode_AccentColor[0] + (Int32)(((AccentPalette.DarkMode_AccentColor[0] - 255) * -0.0784313725490195) + MAGIC_NUMBER - MAGIC_NUMBER));
+            border_Idle[1] = (Byte)(AccentPalette.DarkMode_AccentColor[1] + (Int32)(((AccentPalette.DarkMode_AccentColor[1] - 255) * -0.0784313725490195) + MAGIC_NUMBER - MAGIC_NUMBER));
+            border_Idle[2] = (Byte)(AccentPalette.DarkMode_AccentColor[2] + (Int32)(((AccentPalette.DarkMode_AccentColor[2] - 255) * -0.0784313725490195) + MAGIC_NUMBER - MAGIC_NUMBER));
 
             // (-5.8) x = y - 131.2
             border_MouseOver[0] = (Byte)(AccentPalette.DarkMode_AccentColor[0] + (Int32)(((AccentPalette.DarkMode_AccentColor[0] - 131.2) * -0.1724137931034483) + MAGIC_NUMBER - MAGIC_NUMBER));
@@ -52,14 +52,14 @@ namespace Installer
             mouseDown[2] = (Byte)(AccentPalette.LightMode_AccentColor[2] + (Int32)(((AccentPalette.LightMode_AccentColor[2] - 243) * -0.2) + MAGIC_NUMBER - MAGIC_NUMBER));
 
             // (-12.75)x = y - 255
-            border_Idle[0] = (Byte)(AccentPalette.LightMode_AccentColor[0] + (Int32)(((AccentPalette.LightMode_AccentColor[0] - 255) * -0.0784313725490196) + MAGIC_NUMBER - MAGIC_NUMBER));
-            border_Idle[1] = (Byte)(AccentPalette.LightMode_AccentColor[1] + (Int32)(((AccentPalette.LightMode_AccentColor[1] - 255) * -0.0784313725490196) + MAGIC_NUMBER - MAGIC_NUMBER));
-            border_Idle[2] = (Byte)(AccentPalette.LightMode_AccentColor[2] + (Int32)(((AccentPalette.LightMode_AccentColor[2] - 255) * -0.0784313725490196) + MAGIC_NUMBER - MAGIC_NUMBER));   
+            border_Idle[0] = (Byte)(AccentPalette.LightMode_AccentColor[0] + (Int32)(((AccentPalette.LightMode_AccentColor[0] - 255) * -0.0784313725490195) + MAGIC_NUMBER - MAGIC_NUMBER));
+            border_Idle[1] = (Byte)(AccentPalette.LightMode_AccentColor[1] + (Int32)(((AccentPalette.LightMode_AccentColor[1] - 255) * -0.0784313725490195) + MAGIC_NUMBER - MAGIC_NUMBER));
+            border_Idle[2] = (Byte)(AccentPalette.LightMode_AccentColor[2] + (Int32)(((AccentPalette.LightMode_AccentColor[2] - 255) * -0.0784313725490195) + MAGIC_NUMBER - MAGIC_NUMBER));   
 
             // (-5.82) x = y - 248
-            border_MouseOver[0] = (Byte)(AccentPalette.LightMode_AccentColor[0] + (Int32)(((AccentPalette.LightMode_AccentColor[0] - 248) * -0.1718213058419244) + MAGIC_NUMBER - MAGIC_NUMBER));
-            border_MouseOver[1] = (Byte)(AccentPalette.LightMode_AccentColor[1] + (Int32)(((AccentPalette.LightMode_AccentColor[1] - 248) * -0.1718213058419244) + MAGIC_NUMBER - MAGIC_NUMBER));
-            border_MouseOver[2] = (Byte)(AccentPalette.LightMode_AccentColor[2] + (Int32)(((AccentPalette.LightMode_AccentColor[2] - 248) * -0.1718213058419244) + MAGIC_NUMBER - MAGIC_NUMBER));
+            border_MouseOver[0] = (Byte)(AccentPalette.LightMode_AccentColor[0] + (Int32)(((AccentPalette.LightMode_AccentColor[0] - 248) * -0.1718213058419243) + MAGIC_NUMBER - MAGIC_NUMBER));
+            border_MouseOver[1] = (Byte)(AccentPalette.LightMode_AccentColor[1] + (Int32)(((AccentPalette.LightMode_AccentColor[1] - 248) * -0.1718213058419243) + MAGIC_NUMBER - MAGIC_NUMBER));
+            border_MouseOver[2] = (Byte)(AccentPalette.LightMode_AccentColor[2] + (Int32)(((AccentPalette.LightMode_AccentColor[2] - 248) * -0.1718213058419243) + MAGIC_NUMBER - MAGIC_NUMBER));
 
             SetNewColors(ThemeData.ControlColors.LightMode_BorderBrush_Idle, ref border_Idle);
             SetNewColors(ThemeData.ControlColors.LightMode_Background_MouseOver, ref background_MouseOver);

@@ -7,6 +7,7 @@ namespace Installer
         public MainWindow()
         {
             InitializeComponent();
+
             UI.MainWindow = this;
             UI.Dispatcher = Dispatcher;
 
