@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Installer
 {
@@ -17,18 +15,6 @@ namespace Installer
             Loaded += InitializeApplicationThemeAwareness;
 
             Title += $"[{Program.AssemblyInformationalVersion} | Build {Program.AssemblyFileVersion.Revision}]";
-
-            Thread thread = new(async () =>
-            {
-                while (true)
-                {
-                    UI.Dispatcher.Invoke(() => SelectView.SelfHealingCheckBox.IsEnabled = false);
-                    await Task.Delay(1000);
-                    UI.Dispatcher.Invoke(() => SelectView.SelfHealingCheckBox.IsEnabled = true);
-                    await Task.Delay(1000);
-                }
-            });
-            thread.Start();
         }
 
         private void ApplyAnimators()
@@ -43,6 +29,7 @@ namespace Installer
             ButtonAnimator.SecondaryButton.HookChild(ref ResultView.FinishButton);
 
             CheckBoxAnimator.Initialize();
+            CheckBoxAnimator.HookChild(ref SelectView.CheckBoxDisabled);
             CheckBoxAnimator.HookChild(ref SelectView.SelfHealingCheckBox);
         }
 

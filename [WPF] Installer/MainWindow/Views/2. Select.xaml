@@ -18,7 +18,7 @@
             Margin="24,20,0,0"
             FontSize="20"/>
 
-        <CheckBox
+        <CheckBox x:Name="CheckBoxDisabled"
             Style="{StaticResource CheckBox_Checked}"
             Foreground="{StaticResource FontColor}"
             Content="Hyper Key Deregisterer"
@@ -42,7 +42,6 @@
 
         <CheckBox x:Name="SelfHealingCheckBox"
             Style="{StaticResource CheckBox_Checked}"
-            IsEnabled="False"
             Foreground="{StaticResource FontColor}"
             Content="Self-Healing"
             FontSize="16"

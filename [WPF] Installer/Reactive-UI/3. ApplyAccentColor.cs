@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Installer
@@ -58,19 +59,6 @@ namespace Installer
 
                 CheckBoxAnimator.SetColor_MouseUp_Unchecked([240, 240, 240], [137, 137, 137]);
                 CheckBoxAnimator.SetColor_MouseUp_Checked(ThemeData.ControlColors.LightMode_Background_MouseOver);
-
-                for (Int32 i = 0; i < CheckBoxAnimator.HookedCheckBoxes.Count; ++i)
-                {
-                    if ((Boolean)CheckBoxAnimator.HookedCheckBoxes[i].IsChecked)
-                    {
-                        CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(AccentPalette.LightMode_AccentColor[0], AccentPalette.LightMode_AccentColor[1], AccentPalette.LightMode_AccentColor[2]));
-                    }
-                    else
-                    {
-                        CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(249, 249, 249));
-                        CheckBoxAnimator.HookedCheckBoxes[i].BorderBrush = new SolidColorBrush(Color.FromRgb(139, 139, 139));
-                    }
-                }
             }
             else
             {
@@ -87,22 +75,67 @@ namespace Installer
 
                 CheckBoxAnimator.SetColor_MouseUp_Unchecked([52, 52, 52], [160, 160, 160]);
                 CheckBoxAnimator.SetColor_MouseUp_Checked(ThemeData.ControlColors.DarkMode_Background_MouseOver);
+            }
 
-                for (Int32 i = 0; i < CheckBoxAnimator.HookedCheckBoxes.Count; ++i)
+            for (Int32 i = 0; i < CheckBoxAnimator.HookedCheckBoxes.Count; ++i)
+            {
+                if (CheckBoxAnimator.HookedCheckBoxes[i].IsEnabled)
                 {
                     if ((Boolean)CheckBoxAnimator.HookedCheckBoxes[i].IsChecked)
                     {
-                        CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(AccentPalette.DarkMode_AccentColor[0], AccentPalette.DarkMode_AccentColor[1], AccentPalette.DarkMode_AccentColor[2]));
+                        if (AppsUseLightTheme)
+                        {
+                            CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(AccentPalette.LightMode_AccentColor[0], AccentPalette.LightMode_AccentColor[1], AccentPalette.LightMode_AccentColor[2]));
+                        }
+                        else
+                        {
+                            CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(AccentPalette.DarkMode_AccentColor[0], AccentPalette.DarkMode_AccentColor[1], AccentPalette.DarkMode_AccentColor[2]));
+                        }
                     }
                     else
                     {
-                        CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(39, 39, 39));
-                        CheckBoxAnimator.HookedCheckBoxes[i].BorderBrush = new SolidColorBrush(Color.FromRgb(158, 158, 158));
+                        if (AppsUseLightTheme)
+                        {
+                            CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(249, 249, 249));
+                            CheckBoxAnimator.HookedCheckBoxes[i].BorderBrush = new SolidColorBrush(Color.FromRgb(139, 139, 139));
+                        }
+                        else
+                        {
+                            CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(39, 39, 39));
+                            CheckBoxAnimator.HookedCheckBoxes[i].BorderBrush = new SolidColorBrush(Color.FromRgb(158, 158, 158));
+                        }
+                    }
+                }
+                else
+                {
+                    if ((Boolean)CheckBoxAnimator.HookedCheckBoxes[i].IsChecked)
+                    {
+                        if (AppsUseLightTheme)
+                        {
+                            CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(197, 197, 197));
+                            CheckBoxAnimator.HookedCheckBoxes[i].BorderBrush = new SolidColorBrush(Color.FromRgb(176, 176, 176));
+                        }
+                        else
+                        {
+                            CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(76, 76, 76));
+                            CheckBoxAnimator.HookedCheckBoxes[i].BorderBrush = new SolidColorBrush(Color.FromRgb(91, 91, 91));
+                        }
+                    }
+                    else
+                    {
+                        if (AppsUseLightTheme)
+                        {
+                            CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(251, 251, 251));
+                            CheckBoxAnimator.HookedCheckBoxes[i].BorderBrush = new SolidColorBrush(Color.FromRgb(197, 197, 197));
+                        }
+                        else
+                        {
+                            CheckBoxAnimator.HookedCheckBoxes[i].Background = new SolidColorBrush(Color.FromRgb(43, 43, 43));
+                            CheckBoxAnimator.HookedCheckBoxes[i].BorderBrush = new SolidColorBrush(Color.FromRgb(76, 76, 76));
+                        }
                     }
                 }
             }
-
-            
         }
     }
 }

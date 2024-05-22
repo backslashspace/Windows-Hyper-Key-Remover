@@ -5,7 +5,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Media;
 using System.Windows;
 using System.Collections.Generic;
-using static Installer.ThemeAwareness;
 
 namespace Installer
 {
@@ -189,11 +188,11 @@ namespace Installer
                 {
                     if (ThemeAwareness.AppsUseLightTheme)
                     {
-                        checkBox.Background = new SolidColorBrush(Color.FromRgb(AccentPalette.LightMode_AccentColor[0], AccentPalette.LightMode_AccentColor[1], AccentPalette.LightMode_AccentColor[2]));
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(ThemeAwareness.AccentPalette.LightMode_AccentColor[0], ThemeAwareness.AccentPalette.LightMode_AccentColor[1], ThemeAwareness.AccentPalette.LightMode_AccentColor[2]));
                     }
                     else
                     {
-                        checkBox.Background = new SolidColorBrush(Color.FromRgb(AccentPalette.DarkMode_AccentColor[0], AccentPalette.DarkMode_AccentColor[1], AccentPalette.DarkMode_AccentColor[2]));
+                        checkBox.Background = new SolidColorBrush(Color.FromRgb(ThemeAwareness.AccentPalette.DarkMode_AccentColor[0], ThemeAwareness.AccentPalette.DarkMode_AccentColor[1], ThemeAwareness.AccentPalette.DarkMode_AccentColor[2]));
                     }
                 }
                 else

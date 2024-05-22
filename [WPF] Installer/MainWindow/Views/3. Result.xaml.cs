@@ -17,6 +17,8 @@ namespace Installer.Views
         {
             SetProgressBarMaxValue();
 
+            goto SKIP;
+
             if (InstallerSettings.NeedsCleanUp)
             {
                 Install.CleanUp();
@@ -39,6 +41,8 @@ namespace Installer.Views
             RunProgram();
 
             // done
+
+            SKIP:
 
             ShowFinishButton();
         }
