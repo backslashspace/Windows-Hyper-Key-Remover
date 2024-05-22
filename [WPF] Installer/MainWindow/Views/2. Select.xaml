@@ -8,19 +8,17 @@
              d:DesignHeight="400" d:DesignWidth="600">
 
     <Grid>
-        
-        <TextBlock
+
+        <TextBlock Style="{StaticResource TextBlock}"
             Text="Select components to install"
             Height="28" Width="330"
             VerticalAlignment="Top" HorizontalAlignment="Left"
-            Foreground="{DynamicResource FontColor_Display}"
             FontFamily="{StaticResource Inter Display}"
             Margin="24,20,0,0"
             FontSize="20"/>
 
         <CheckBox x:Name="CheckBoxDisabled"
             Style="{StaticResource CheckBox_Checked}"
-            Foreground="{StaticResource FontColor}"
             Content="Hyper Key Deregisterer"
             IsEnabled="False"
             FontSize="16"
@@ -42,7 +40,6 @@
 
         <CheckBox x:Name="SelfHealingCheckBox"
             Style="{StaticResource CheckBox_Checked}"
-            Foreground="{StaticResource FontColor}"
             Content="Self-Healing"
             FontSize="16"
             Margin="48,168,0,0"
